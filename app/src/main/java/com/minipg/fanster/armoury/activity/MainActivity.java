@@ -1,14 +1,12 @@
 package com.minipg.fanster.armoury.activity;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.widget.TextView;
 
-import com.minipg.fanster.armoury.R;
 import com.crashlytics.android.Crashlytics;
+import com.minipg.fanster.armoury.R;
 import com.minipg.fanster.armoury.fragment.MainFragment;
 
 import io.fabric.sdk.android.Fabric;
@@ -18,17 +16,25 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.contentContainer, MainFragment.newInstance(), "MainFragment")
+                .commit();
+
+
         if(savedInstanceState==null){
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.contentContainer, MainFragment.newInstance())
                     .commit();
         }
+
+
         initInstance();
     }
 
@@ -37,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         createTabIcons(tabLayout);
+
 
     }
 
