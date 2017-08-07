@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import com.crashlytics.android.Crashlytics;
 import com.minipg.fanster.armoury.R;
 import com.minipg.fanster.armoury.fragment.MainFragment;
+import com.minipg.fanster.armoury.fragment.TabProfileFragment;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(savedInstanceState==null){
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.contentContainer, MainFragment.newInstance())
+                    .add(R.id.contentContainer, TabProfileFragment.newInstance()) //MainFragment.newInstance())
                     .commit();
         }
 
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void createTabIcons(TabLayout tabLayout) {
         tabLayout.addTab(tabLayout.newTab().setText("Profile").setIcon(R.mipmap.ic_profile));
-        tabLayout.addTab(tabLayout.newTab().setText("Library").setIcon(R.mipmap.ic_folder));
+        tabLayout.addTab(tabLayout.newTab().setText("Library").setIcon(R.mipmap.ic_library_white));
         tabLayout.addTab(tabLayout.newTab().setText("Popular").setIcon(R.mipmap.ic_rating));
         tabLayout.addTab(tabLayout.newTab().setText("Loved").setIcon(R.mipmap.ic_faverite));
     }
