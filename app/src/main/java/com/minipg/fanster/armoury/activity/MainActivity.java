@@ -28,13 +28,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.contentContainer, MainFragment.newInstance(), "MainFragment")
+                .add(R.id.viewPager,TabProfileFragment.newInstance(),"TabProfileFragment") //MainFragment.newInstance(), "MainFragment")
                 .commit();
 
 
         if(savedInstanceState==null){
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.contentContainer, TabProfileFragment.newInstance()) //MainFragment.newInstance())
+                    .add(R.id.viewPager, TabProfileFragment.newInstance()) //MainFragment.newInstance())
                     .commit();
         }
 
@@ -55,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createTabIcons(TabLayout tabLayout) {
-        tabLayout.getTabAt(0).setText(R.string.tab_profile_title).setIcon(R.mipmap.ic_profile);
-        tabLayout.getTabAt(1).setText(R.string.tab_library_title).setIcon(R.mipmap.ic_library_white);
-        tabLayout.getTabAt(2).setText(R.string.tab_popular_title).setIcon(R.mipmap.ic_rating);
-        tabLayout.getTabAt(3).setText(R.string.tab_liked_title).setIcon(R.mipmap.ic_faverite);
+        tabLayout.getTabAt(0).setIcon(R.mipmap.ic_profile).setText(R.string.tab_profile_title);
+        tabLayout.getTabAt(1).setIcon(R.mipmap.ic_library_white).setText(R.string.tab_library_title);
+        tabLayout.getTabAt(2).setIcon(R.mipmap.ic_rating).setText(R.string.tab_popular_title);
+        tabLayout.getTabAt(3).setIcon(R.mipmap.ic_faverite).setText(R.string.tab_liked_title);
     }
 }
