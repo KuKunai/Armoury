@@ -2,17 +2,25 @@ package com.minipg.fanster.armoury.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.minipg.fanster.armoury.R;
+import com.minipg.fanster.armoury.adapter.TopicListAdapter;
 
 
 /**
  * Created by nuuneoi on 11/16/2014.
  */
 public class TabPopularFragment extends Fragment {
+
+    private View mView;
+    private RecyclerView recycleView;
+    private TopicListAdapter topicListAdapter;
 
     public TabPopularFragment() {
         super();
@@ -35,6 +43,11 @@ public class TabPopularFragment extends Fragment {
 
     private void initInstances(View rootView) {
         // Init 'View' instance(s) with rootView.findViewById here
+        mView = rootView;
+        topicListAdapter = new TopicListAdapter();
+        recycleView = (RecyclerView) rootView.findViewById(R.id.recycleView);
+        recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recycleView.setAdapter(topicListAdapter);
     }
 
     @Override

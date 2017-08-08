@@ -28,7 +28,7 @@ public class TabLikedFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_tab_liked, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_tab_popular, container, false);
         initInstances(rootView);
         return rootView;
     }
