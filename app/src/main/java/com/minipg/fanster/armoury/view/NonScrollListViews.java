@@ -9,17 +9,17 @@ import android.widget.ListView;
  * Created by Knot on 8/7/2017.
  */
 
-class NonScrollListView extends ListView {
+class NonScrollListViews extends ListView {
 
-    public NonScrollListView(Context context) {
+    public NonScrollListViews(Context context) {
         super(context);
     }
 
-    public NonScrollListView(Context context, AttributeSet attrs) {
+    public NonScrollListViews(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public NonScrollListView(Context context, AttributeSet attrs, int defStyle) {
+    public NonScrollListViews(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
