@@ -5,5 +5,8 @@
     <string name="Username">Username</string>
     <string name="Password">Password</string>
     <string name="forgot_your_password">Forgot your password ?</string>
-    <string name="go">Submit</string>
+    <string name="tab_profile_title">Submit</string>
+    <string name="tab_popular_title">Submit</string>
+    <string name="tab_liked_title">Submit</string>
+    <string name="tab_library_title">Submit</string>
 </resources>

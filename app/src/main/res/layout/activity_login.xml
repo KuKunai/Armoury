@@ -108,7 +108,7 @@
                     android:layout_height="50dp"
                     android:background="@drawable/bt_shape"
                     android:stateListAnimator="@drawable/state_list_animator_z"
-                    android:text="@string/go"
+                    android:text="go"
                     android:textColor="#d3d3d3"></Button>
             </RelativeLayout>
 
