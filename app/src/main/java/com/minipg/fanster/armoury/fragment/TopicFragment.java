@@ -116,7 +116,7 @@ public class TopicFragment extends Fragment {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         String textTitle = tvTitle.getText() + " " + tvAuthor.getText();
-        intent.putExtra(Intent.EXTRA_SUBJECT, textTitle;
+        intent.putExtra(Intent.EXTRA_SUBJECT, textTitle);
         intent.putExtra(Intent.EXTRA_TITLE, textTitle);
         intent.putExtra(Intent.EXTRA_TEXT, tvDescribtion.getText());
         return intent;
