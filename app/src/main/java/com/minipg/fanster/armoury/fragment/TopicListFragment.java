@@ -3,11 +3,14 @@ package com.minipg.fanster.armoury.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.minipg.fanster.armoury.R;
+import com.minipg.fanster.armoury.adapter.TopicListAdapter;
 
 
 /**
@@ -15,6 +18,10 @@ import com.minipg.fanster.armoury.R;
  */
 @SuppressWarnings("unused")
 public class TopicListFragment extends Fragment {
+
+    private View mView;
+    private RecyclerView recycleView;
+    private TopicListAdapter topicListAdapter;
 
     public TopicListFragment() {
         super();
@@ -52,6 +59,11 @@ public class TopicListFragment extends Fragment {
     @SuppressWarnings("UnusedParameters")
     private void initInstances(View rootView, Bundle savedInstanceState) {
         // Init 'View' instance(s) with rootView.findViewById here
+        mView = rootView;
+        topicListAdapter = new TopicListAdapter();
+        recycleView = (RecyclerView) rootView.findViewById(R.id.recycleViewTopicList);
+        recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recycleView.setAdapter(topicListAdapter);
     }
 
     @Override
