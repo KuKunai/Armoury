@@ -32,8 +32,12 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout dialogLogout;
     private Button btnCancel;
     private Button btnLogout;
-    private TextView tvExit;
     private View viewOutsideDialog;
+    private RelativeLayout dialogLogoutB;
+    private Button btnCancelB;
+    private Button btnClose;
+    private View viewOutsideDialogB;
+    private boolean close;
 
 
     @Override
@@ -43,11 +47,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.viewPager,TabProfileFragment.newInstance(),"TabProfileFragment") //MainFragment.newInstance(), "MainFragment")
+                .add(R.id.viewPager, TabProfileFragment.newInstance(), "TabProfileFragment") //MainFragment.newInstance(), "MainFragment")
                 .commit();
 
 
-        if(savedInstanceState==null){
+        if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.viewPager, TabProfileFragment.newInstance()) //MainFragment.newInstance())
                     .commit();
@@ -62,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         //Logout Dialog
         initLogoutDialog();
+        //Back press Dialog
+        initBackDialog();
         //View Play
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         PageAdapter pageAdapter = new PageAdapter(getSupportFragmentManager());
@@ -71,10 +77,36 @@ public class MainActivity extends AppCompatActivity {
         createTabIcons(tabLayout);
     }
 
+    private void initBackDialog() {
+        close = false;
+        dialogLogoutB = (RelativeLayout) findViewById(R.id.dialogBack);
+        viewOutsideDialogB = (View) findViewById(R.id.viewOutsideDialog2);
+        btnCancelB = (Button) findViewById(R.id.btnCancel2);
+        btnClose = (Button) findViewById(R.id.btnLogout2);
+        viewOutsideDialogB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+        btnCancelB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogLogoutB.setVisibility(view.GONE);
+                close = false;
+            }
+        });
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                close = true;
+                finish();
+            }
+        });
+    }
+
     private void initLogoutDialog() {
         dialogLogout = (RelativeLayout) findViewById(R.id.dialogLogout);
-        tvExit = (TextView) findViewById(R.id.tvExit);
-        viewOutsideDialog = (View)findViewById(R.id.viewOutsideDialog);
+        viewOutsideDialog = (View) findViewById(R.id.viewOutsideDialog);
         btnCancel = (Button) findViewById(R.id.btnCancel);
         btnLogout = (Button) findViewById(R.id.btnLogout);
         viewOutsideDialog.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
                 //TODO: Clear user
                 finish();
@@ -114,12 +146,26 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.action_logout) {
+        if (item.getItemId() == R.id.action_logout) {
             dialogLogout.setVisibility(View.VISIBLE);
-            tvExit.setText("Are you sure dude?");
             //finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void finish() {
+        if (dialogLogout.getVisibility() == View.VISIBLE) {
+            dialogLogout.setVisibility(View.GONE);
+        } else if (dialogLogoutB.getVisibility() == View.VISIBLE) {
+            dialogLogoutB.setVisibility(View.GONE);
+        } else {
+            if(close)
+                super.finish();
+            else
+                dialogLogoutB.setVisibility(View.VISIBLE);
+        }
+
     }
 }
