@@ -1,5 +1,6 @@
 package com.minipg.fanster.armoury.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -8,11 +9,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
+import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 import com.minipg.fanster.armoury.R;
 import com.minipg.fanster.armoury.adapter.PageAdapter;
 import com.minipg.fanster.armoury.fragment.MainFragment;
@@ -57,37 +61,42 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //Logout Dialog
-        dialogLogout = (RelativeLayout) findViewById(R.id.dialogLogout);
-        tvExit = (TextView) findViewById(R.id.tvExit);
-        viewOutsideDialog = (View)findViewById(R.id.viewOutsideDialog);
-        viewOutsideDialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
-        btnCancel = (Button) findViewById(R.id.btnCancel);
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogLogout.setVisibility(view.GONE);
-            }
-        });
-        btnLogout = (Button) findViewById(R.id.btnLogout);
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
+        initLogoutDialog();
+        //View Play
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         PageAdapter pageAdapter = new PageAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pageAdapter);
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
         createTabIcons(tabLayout);
+    }
 
-
+    private void initLogoutDialog() {
+        dialogLogout = (RelativeLayout) findViewById(R.id.dialogLogout);
+        tvExit = (TextView) findViewById(R.id.tvExit);
+        viewOutsideDialog = (View)findViewById(R.id.viewOutsideDialog);
+        btnCancel = (Button) findViewById(R.id.btnCancel);
+        btnLogout = (Button) findViewById(R.id.btnLogout);
+        viewOutsideDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogLogout.setVisibility(view.GONE);
+            }
+        });
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(intent);
+                //TODO: Clear user
+                finish();
+            }
+        });
     }
 
     private void createTabIcons(TabLayout tabLayout) {
@@ -112,10 +121,5 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void finish() {
-        super.finish();
     }
 }
