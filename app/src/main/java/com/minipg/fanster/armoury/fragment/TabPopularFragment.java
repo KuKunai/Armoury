@@ -10,7 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.minipg.fanster.armoury.R;
+import com.minipg.fanster.armoury.adapter.PopularTopicListAdapter;
 import com.minipg.fanster.armoury.adapter.TopicListAdapter;
+import com.minipg.fanster.armoury.dao.CategoryItemDao;
+import com.minipg.fanster.armoury.dao.TopicItemDao;
+
+import java.util.List;
 
 
 /**
@@ -20,7 +25,8 @@ public class TabPopularFragment extends Fragment {
 
     private View mView;
     private RecyclerView recycleView;
-    private TopicListAdapter topicListAdapter;
+    private List<TopicItemDao> topicList;
+    private PopularTopicListAdapter topicListAdapter;
 
     public TabPopularFragment() {
         super();
@@ -44,7 +50,7 @@ public class TabPopularFragment extends Fragment {
     private void initInstances(View rootView) {
         // Init 'View' instance(s) with rootView.findViewById here
         mView = rootView;
-        topicListAdapter = new TopicListAdapter();
+        topicListAdapter = new PopularTopicListAdapter(this,topicList,TabPopularFragment.this);
         recycleView = (RecyclerView) rootView.findViewById(R.id.recycleViewPop);
         recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recycleView.setAdapter(topicListAdapter);

@@ -9,7 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.minipg.fanster.armoury.R;
+import com.minipg.fanster.armoury.adapter.LikedTopicListAdapter;
 import com.minipg.fanster.armoury.adapter.TopicListAdapter;
+import com.minipg.fanster.armoury.dao.TopicItemDao;
+
+import java.util.List;
 
 
 /**
@@ -19,7 +23,8 @@ public class TabLikedFragment extends Fragment {
 
     private View mView;
     private RecyclerView recycleView;
-    private TopicListAdapter topicListAdapter;
+    private List<TopicItemDao> topicList;
+    private LikedTopicListAdapter topicListAdapter;
 
     public TabLikedFragment() {
         super();
@@ -43,7 +48,7 @@ public class TabLikedFragment extends Fragment {
     private void initInstances(View rootView) {
         // Init 'View' instance(s) with rootView.findViewById here
         mView = rootView;
-        topicListAdapter = new TopicListAdapter();
+        topicListAdapter = new LikedTopicListAdapter(this,topicList,TabLikedFragment.this);
         recycleView = (RecyclerView) rootView.findViewById(R.id.recycleViewLike);
         recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recycleView.setAdapter(topicListAdapter);

@@ -26,6 +26,7 @@
 
         <activity android:name=".activity.MainActivity"></activity>
         <activity android:name=".activity.TopicListActivity"></activity>
+        <activity android:name=".activity.TopicActivity"></activity>
     </application>
 
 </manifest>

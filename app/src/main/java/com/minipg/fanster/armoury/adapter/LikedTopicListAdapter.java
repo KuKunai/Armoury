@@ -6,18 +6,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.minipg.fanster.armoury.R;
 import com.minipg.fanster.armoury.activity.TopicActivity;
-import com.minipg.fanster.armoury.activity.TopicListActivity;
-import com.minipg.fanster.armoury.dao.CategoryItemDao;
 import com.minipg.fanster.armoury.dao.TopicItemDao;
-import com.minipg.fanster.armoury.fragment.TabCategoryFragment;
-import com.minipg.fanster.armoury.fragment.TabPopularFragment;
+import com.minipg.fanster.armoury.fragment.TabLikedFragment;
 import com.minipg.fanster.armoury.fragment.TopicListFragment;
-import com.minipg.fanster.armoury.view.TopicListItem;
 
 import java.util.List;
 
@@ -28,20 +23,20 @@ import java.util.List;
 
 
 
-public class TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.TopicListItemHolder> {
+public class LikedTopicListAdapter extends RecyclerView.Adapter<LikedTopicListAdapter.TopicListItemHolder> {
 
-    TopicListFragment fragmentCategory;
+    TabLikedFragment fragmentCategory;
     List<TopicItemDao> categoryList;
-    TopicListFragment fragmentCategory1;
+    TabLikedFragment fragmentCategory1;
 
-    public TopicListAdapter(TopicListFragment fragmentCategory,
-                            List<TopicItemDao> categoryList, TopicListFragment fragmentCategory1){
+    public LikedTopicListAdapter(TabLikedFragment fragmentCategory,
+                                 List<TopicItemDao> categoryList, TabLikedFragment fragmentCategory1){
         this.fragmentCategory = fragmentCategory;
         this.categoryList = categoryList;
         this.fragmentCategory1 = fragmentCategory1;
     }
 
-    public TopicListAdapter(){
+    public LikedTopicListAdapter(){
     }
 
     @Override

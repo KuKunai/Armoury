@@ -1,35 +1,30 @@
 package com.minipg.fanster.armoury.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.crashlytics.android.Crashlytics;
 import com.minipg.fanster.armoury.R;
-import com.minipg.fanster.armoury.adapter.PageAdapter;
-import com.minipg.fanster.armoury.fragment.TabProfileFragment;
+import com.minipg.fanster.armoury.fragment.TopicFragment;
 import com.minipg.fanster.armoury.fragment.TopicListFragment;
-
-import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by Knot on 8/10/2017.
  */
 
-public class TopicListActivity extends AppCompatActivity {
+public class TopicActivity extends AppCompatActivity {
+
     private Toolbar toolbar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_topic_list);
-
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.topicListContainer, TopicListFragment.newInstance()) //MainFragment.newInstance())
+                    .add(R.id.topicListContainer, TopicFragment.newInstance()) //MainFragment.newInstance())
                     .commit();
         }
         initInstance();
