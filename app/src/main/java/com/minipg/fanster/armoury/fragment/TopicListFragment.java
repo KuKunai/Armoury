@@ -14,15 +14,15 @@ import com.minipg.fanster.armoury.R;
  * Created by nuuneoi on 11/16/2014.
  */
 @SuppressWarnings("unused")
-public class FragmentTemplateFull extends Fragment {
+public class TopicListFragment extends Fragment {
 
-    public FragmentTemplateFull() {
+    public TopicListFragment() {
         super();
     }
 
     @SuppressWarnings("unused")
-    public static FragmentTemplateFull newInstance() {
-        FragmentTemplateFull fragment = new FragmentTemplateFull();
+    public static TopicListFragment newInstance() {
+        TopicListFragment fragment = new TopicListFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -40,7 +40,7 @@ public class FragmentTemplateFull extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_topic_list, container, false);
         initInstances(rootView, savedInstanceState);
         return rootView;
     }

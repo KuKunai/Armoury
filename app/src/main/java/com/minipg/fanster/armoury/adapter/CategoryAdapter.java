@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.minipg.fanster.armoury.R;
 import com.minipg.fanster.armoury.activity.LoginActivity;
+import com.minipg.fanster.armoury.activity.TopicListActivity;
 import com.minipg.fanster.armoury.dao.CategoryItemDao;
 import com.minipg.fanster.armoury.fragment.TabCategoryFragment;
 import com.minipg.fanster.armoury.manager.CategoryListManager;
@@ -67,7 +68,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     TabCategoryFragment fragmentCategory;
     List<CategoryItemDao> categoryList;
     TabCategoryFragment fragmentCategory1;
-
+    CategoryItemDao dao;
 
     public CategoryAdapter(TabCategoryFragment fragmentCategory, List<CategoryItemDao> categoryList, TabCategoryFragment fragmentCategory1){
         this.fragmentCategory = fragmentCategory;
@@ -84,12 +85,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @Override
     public void onBindViewHolder(CategoryListItemHolder holder, int position) {
-        holder.tvCate.setText("IOS");
+        if(categoryList!=null)
+            dao = categoryList.get(position);
+        if(dao!=null)
+            holder.tvCate.setText(dao.getName());
+        else
+            holder.tvCate.setText("IOS");
         holder.tvAmount.setText("Amount : "+ position+1);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(fragmentCategory.getActivity(), LoginActivity.class);
+                Intent intent = new Intent(fragmentCategory.getActivity(), TopicListActivity.class);
                 fragmentCategory1.startActivity(intent);
             }
         });
@@ -97,7 +103,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @Override
     public int getItemCount() {
-        return 4;
+        if(categoryList == null)
+            return 4;
+        return categoryList.size();
     }
 
     static class  CategoryListItemHolder extends RecyclerView.ViewHolder {

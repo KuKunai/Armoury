@@ -19,6 +19,7 @@ import com.minipg.fanster.armoury.manager.CategoryListManager;
 import com.minipg.fanster.armoury.manager.bus.Contextor;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -70,12 +71,21 @@ public class TabCategoryFragment extends Fragment {
         categoryListManager = new CategoryListManager();
     }
 
+    private void mockDao(){
+        categoryList = new ArrayList<>();
+        categoryList.add(new CategoryItemDao("Android"));
+        categoryList.add(new CategoryItemDao("IOS"));
+        categoryList.add(new CategoryItemDao("Web"));
+        categoryList.add(new CategoryItemDao("Service"));
+    }
+
     @SuppressWarnings("UnusedParameters")
     private void initInstances(View rootView, Bundle savedInstanceState) {
         // Init 'View' instance(s) with rootView.findViewById here
-        categoryListAdapter = new CategoryAdapter(this,categoryList,TabCategoryFragment.this);
+        mockDao();
         listView = (RecyclerView) rootView.findViewById(R.id.rc_list);
         listView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        categoryListAdapter = new CategoryAdapter(this,categoryList,TabCategoryFragment.this);
         listView.setAdapter(categoryListAdapter);
 //        Call<List<CategoryItemDao>> call = HttpManager.getInstance().getService().loadAllCategoryList();
 //        call.enqueue(new Callback<List<CategoryItemDao>>() {
@@ -83,8 +93,8 @@ public class TabCategoryFragment extends Fragment {
 //            public void onResponse(Call<List<CategoryItemDao>> call, Response<List<CategoryItemDao>> response) {
 //                if (response.isSuccessful()) {
 //                    List<CategoryItemDao> dao = response.body();
-//                    categoryListManager.setDao(dao);
-//                    categoryListAdapter.setDao(categoryListManager.getDao());
+//                    if(dao!=null)
+//                        categoryList =dao;
 //                    categoryListAdapter.notifyDataSetChanged();
 //                    showToast("Load Completed");
 //                } else {

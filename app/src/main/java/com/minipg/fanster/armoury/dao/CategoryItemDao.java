@@ -15,6 +15,14 @@ public class CategoryItemDao {
     @Expose
     private String name;
 
+    public CategoryItemDao(){
+
+    }
+
+    public CategoryItemDao(String name){
+        this.name = name;
+    }
+
     public String getId() {
         return id;
     }

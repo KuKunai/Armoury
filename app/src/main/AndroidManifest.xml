@@ -25,6 +25,7 @@
             android:value="710112a46c1f4dab28dd347033216e2b7a923bf2" />
 
         <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.TopicListActivity"></activity>
     </application>
 
 </manifest>
