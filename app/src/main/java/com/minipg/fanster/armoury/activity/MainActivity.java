@@ -156,16 +156,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void finish() {
+        if(close)
+            super.finish();
         if (dialogLogout.getVisibility() == View.VISIBLE) {
             dialogLogout.setVisibility(View.GONE);
         } else if (dialogLogoutB.getVisibility() == View.VISIBLE) {
             dialogLogoutB.setVisibility(View.GONE);
-        } else {
-            if(close)
-                super.finish();
-            else
-                dialogLogoutB.setVisibility(View.VISIBLE);
-        }
+            close = false;
+        } else dialogLogoutB.setVisibility(View.VISIBLE);
 
     }
 }
