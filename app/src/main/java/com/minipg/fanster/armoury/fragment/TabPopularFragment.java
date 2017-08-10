@@ -45,7 +45,7 @@ public class TabPopularFragment extends Fragment {
         // Init 'View' instance(s) with rootView.findViewById here
         mView = rootView;
         topicListAdapter = new TopicListAdapter();
-        recycleView = (RecyclerView) rootView.findViewById(R.id.recycleView);
+        recycleView = (RecyclerView) rootView.findViewById(R.id.recycleViewPop);
         recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recycleView.setAdapter(topicListAdapter);
     }

@@ -2,17 +2,24 @@ package com.minipg.fanster.armoury.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.minipg.fanster.armoury.R;
+import com.minipg.fanster.armoury.adapter.TopicListAdapter;
 
 
 /**
  * Created by nuuneoi on 11/16/2014.
  */
 public class TabLikedFragment extends Fragment {
+
+    private View mView;
+    private RecyclerView recycleView;
+    private TopicListAdapter topicListAdapter;
 
     public TabLikedFragment() {
         super();
@@ -28,13 +35,18 @@ public class TabLikedFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_tab_popular, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_tab_liked, container, false);
         initInstances(rootView);
         return rootView;
     }
 
     private void initInstances(View rootView) {
         // Init 'View' instance(s) with rootView.findViewById here
+        mView = rootView;
+        topicListAdapter = new TopicListAdapter();
+        recycleView = (RecyclerView) rootView.findViewById(R.id.recycleViewLike);
+        recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recycleView.setAdapter(topicListAdapter);
     }
 
     @Override

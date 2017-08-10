@@ -4,8 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.minipg.fanster.armoury.R;
-import com.minipg.fanster.armoury.fragment.TabKnowlegdeFragment;
+import com.minipg.fanster.armoury.fragment.TabCategoryFragment;
 import com.minipg.fanster.armoury.fragment.TabLikedFragment;
 import com.minipg.fanster.armoury.fragment.TabPopularFragment;
 import com.minipg.fanster.armoury.fragment.TabProfileFragment;
@@ -24,7 +23,7 @@ public class PageAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0: return new TabProfileFragment();
-            case 1: return new TabKnowlegdeFragment();
+            case 1: return new TabCategoryFragment();
             case 2: return new TabPopularFragment();
             case 3: return new TabLikedFragment();
             default: return null;

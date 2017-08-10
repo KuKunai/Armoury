@@ -8,10 +8,10 @@
     android:paddingTop="4dp">
 
     <android.support.v7.widget.CardView
+        android:id="@+id/cardViewCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:padding="10dp"
         card_view:cardCornerRadius="4dp">
 
         <LinearLayout
@@ -25,36 +25,35 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@mipmap/ic_descrip"
+                android:padding="4dp"
                 android:scaleType="fitCenter"
-                android:padding="4dp"/>
+                android:src="@mipmap/ic_descrip" />
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:weightSum="3"
                 android:layout_weight="5"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:weightSum="3">
 
                 <LinearLayout
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:orientation="horizontal"
                     android:weightSum="5">
 
                     <TextView
-                        android:id="@+id/tvTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="Title"
+                        android:text=""
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/tvDate"
+                        android:id="@+id/tvAmount"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
@@ -62,50 +61,48 @@
                         android:ellipsize="end"
                         android:gravity="right"
                         android:maxLines="1"
-                        android:text="Date"
+                        android:text=""
                         android:textSize="14sp" />
 
 
                 </LinearLayout>
 
                 <TextView
-                    android:layout_weight="1"
-                    android:id="@+id/tvAuthor"
+                    android:id="@+id/tvCategory"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="by Author"
-                    android:textSize="14sp" />
+                    android:text="Category"
+                    android:textSize="18sp" />
 
                 <LinearLayout
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:orientation="horizontal"
                     android:weightSum="5">
 
                     <TextView
-                        android:id="@+id/tvStory"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
                         android:layout_weight="3"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:textSize="12sp"
-                        android:layout_gravity="bottom"
-                        android:text="Story Story Story Story Story Story Story Story Story Story" />
+                        android:text=""
+                        android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/tvLiked"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right|bottom"
                         android:layout_weight="2"
                         android:gravity="right"
                         android:maxLines="1"
-                        android:textSize="12sp"
-                        android:text="1400 Liked" />
+                        android:text=""
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -113,8 +110,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
     </android.support.v7.widget.CardView>
-
 
 </RelativeLayout>

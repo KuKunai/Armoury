@@ -4,6 +4,8 @@ package com.minipg.fanster.armoury.manager.http;
 import com.minipg.fanster.armoury.dao.CategoryItemDao;
 import com.minipg.fanster.armoury.dao.TopicItemDao;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -22,5 +24,5 @@ public interface ApiService {
     Call<TopicItemDao> loadTopicListByType(@Path("category") String category);
 
     @GET("category/getallcategory")
-    Call<CategoryItemDao> loadAllCategoryList();
+    Call<List<CategoryItemDao>> loadAllCategoryList();
 }
