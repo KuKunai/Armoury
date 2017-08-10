@@ -5,6 +5,7 @@ import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.minipg.fanster.armoury.R;
@@ -16,15 +17,15 @@ import com.minipg.fanster.armoury.fragment.TopicListFragment;
  */
 
 public class TopicActivity extends AppCompatActivity {
-
     private Toolbar toolbar;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_topic);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.topicListContainer, TopicFragment.newInstance()) //MainFragment.newInstance())
+                    .add(R.id.topicContainer, TopicFragment.newInstance()) //MainFragment.newInstance())
                     .commit();
         }
         initInstance();
@@ -36,6 +37,12 @@ public class TopicActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+//
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_topic, menu);
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

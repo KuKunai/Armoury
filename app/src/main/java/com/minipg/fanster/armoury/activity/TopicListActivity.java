@@ -26,7 +26,6 @@ public class TopicListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topic_list);
-
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.topicListContainer, TopicListFragment.newInstance()) //MainFragment.newInstance())
