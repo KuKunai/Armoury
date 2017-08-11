@@ -3,21 +3,16 @@ package com.minipg.fanster.armoury.adapter;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.minipg.fanster.armoury.R;
 import com.minipg.fanster.armoury.activity.TopicActivity;
-import com.minipg.fanster.armoury.activity.TopicListActivity;
-import com.minipg.fanster.armoury.dao.CategoryItemDao;
 import com.minipg.fanster.armoury.dao.TopicItemDao;
-import com.minipg.fanster.armoury.fragment.TabCategoryFragment;
-import com.minipg.fanster.armoury.fragment.TabPopularFragment;
 import com.minipg.fanster.armoury.fragment.TopicListFragment;
-import com.minipg.fanster.armoury.view.TopicListItem;
 
 import java.util.List;
 
@@ -27,53 +22,55 @@ import java.util.List;
  */
 
 
-
 public class TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.TopicListItemHolder> {
 
-    TopicListFragment fragmentCategory;
-    List<TopicItemDao> categoryList;
-    TopicListFragment fragmentCategory1;
+    TopicListFragment fragmentTopic;
+    List<TopicItemDao> topicList;
+    TopicListFragment fragmentTopic1;
 
-    public TopicListAdapter(TopicListFragment fragmentCategory,
-                            List<TopicItemDao> categoryList, TopicListFragment fragmentCategory1){
-        this.fragmentCategory = fragmentCategory;
-        this.categoryList = categoryList;
-        this.fragmentCategory1 = fragmentCategory1;
-    }
-
-    public TopicListAdapter(){
+    public TopicListAdapter(TopicListFragment fragmentTopic,
+                            List<TopicItemDao> topicList, TopicListFragment fragmentTopic1) {
+        this.fragmentTopic = fragmentTopic;
+        this.topicList = topicList;
+        this.fragmentTopic1 = fragmentTopic1;
     }
 
     @Override
     public TopicListItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.list_topic,parent,false);
+                inflate(R.layout.list_topic, parent, false);
         return new TopicListItemHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(TopicListItemHolder holder, int position) {
-        holder.tvTitle.setText("Title" + position);
-        holder.tvAuthor.setText("By Author");
-        holder.tvStory.setText("Story");
-        holder.tvDate.setText("Date");
-        holder.tvLiked.setText(position + "Liked");
+        if (topicList != null) {
+            holder.tvTitle.setText(topicList.get(position).getHead());
+            holder.tvAuthor.setText("by " + topicList.get(position).getPoster());
+            holder.tvStory.setText(topicList.get(position).getDescription());
+            //TODO Format Date
+            holder.tvDate.setText("Date");
+            holder.tvLiked.setText(position + "Liked");
+        }
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(fragmentCategory.getActivity(), TopicActivity.class);
-                fragmentCategory1.startActivity(intent);
+                Intent intent = new Intent(fragmentTopic.getActivity(), TopicActivity.class);
+                //intent.putExtra Here!!
+                fragmentTopic1.startActivity(intent);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        if (topicList == null)
+            return 0;
+        return topicList.size();
     }
 
 
-    static class  TopicListItemHolder extends RecyclerView.ViewHolder {
+    static class TopicListItemHolder extends RecyclerView.ViewHolder {
 
         private final TextView tvTitle;
         private final TextView tvAuthor;
@@ -92,4 +89,12 @@ public class TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.Topi
             tvLiked = (TextView) itemView.findViewById(R.id.tvLiked);
         }
     }
+
+    public void setData(List<TopicItemDao> data) {
+        if (data != null) {
+            this.topicList = data;
+        }
+        Log.d("dataaaa", "onResponse: " + data);
+    }
+
 }

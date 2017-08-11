@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.Toast;
 import com.minipg.fanster.armoury.R;
 import com.minipg.fanster.armoury.adapter.CategoryAdapter;
@@ -22,14 +21,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static io.fabric.sdk.android.services.concurrency.AsyncTask.init;
-
 
 public class TabCategoryFragment extends Fragment {
 
     private View mView;
     private CategoryAdapter categoryListAdapter;
-    private RecyclerView listView;
+    private RecyclerView recyclerView;
     private List<CategoryItemDao> categoryList;
 
     public TabCategoryFragment() {
@@ -77,10 +74,10 @@ public class TabCategoryFragment extends Fragment {
     private void initInstances(View rootView, Bundle savedInstanceState) {
         // Init 'View' instance(s) with rootView.findViewById here
         mockDao();
-        listView = (RecyclerView) rootView.findViewById(R.id.rc_list);
-        listView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.rc_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         categoryListAdapter = new CategoryAdapter(this, categoryList, TabCategoryFragment.this);
-        listView.setAdapter(categoryListAdapter);
+        recyclerView.setAdapter(categoryListAdapter);
         if (savedInstanceState == null)
             loadData();
     }

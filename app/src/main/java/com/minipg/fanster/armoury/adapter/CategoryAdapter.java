@@ -29,7 +29,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     List<CategoryItemDao> categoryList;
     TabCategoryFragment fragmentCategory1;
     CategoryItemDao dao;
-    private List<CategoryItemDao> data;
 
     public CategoryAdapter(TabCategoryFragment fragmentCategory, List<CategoryItemDao> categoryList, TabCategoryFragment fragmentCategory1){
         this.fragmentCategory = fragmentCategory;
@@ -66,7 +65,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     @Override
     public int getItemCount() {
         if(categoryList == null)
-            return 4;
+            return 0;
         return categoryList.size();
     }
 

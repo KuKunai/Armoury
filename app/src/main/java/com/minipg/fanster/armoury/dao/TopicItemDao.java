@@ -1,5 +1,6 @@
 package com.minipg.fanster.armoury.dao;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -7,14 +8,38 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class TopicItemDao {
+    @SerializedName("id")
+    @Expose
+    private String id;
+    @SerializedName("head")
+    @Expose
+    private String head;
+    @SerializedName("description")
+    @Expose
+    private String description;
+    @SerializedName("category")
+    @Expose
+    private String category;
+    @SerializedName("link")
+    @Expose
+    private String link;
+    @SerializedName("score")
+    @Expose
+    private int score;
+    @SerializedName("poster")
+    @Expose
+    private String poster;
+    @SerializedName("createDate")
+    @Expose
+    private long createDate;
 
-    @SerializedName("head") private String head;
-    @SerializedName("description") private String description;
-    @SerializedName("category") private String category;
-    @SerializedName("link") private String link;
-    @SerializedName("score") private Integer score;
-    @SerializedName("poster") private String poster;
-    @SerializedName("createDate") private Integer createDate;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getHead() {
         return head;
@@ -48,7 +73,7 @@ public class TopicItemDao {
         this.link = link;
     }
 
-    public Integer getScore() {
+    public int getScore() {
         return score;
     }
 
@@ -64,7 +89,7 @@ public class TopicItemDao {
         this.poster = poster;
     }
 
-    public Integer getCreateDate() {
+    public long getCreateDate() {
         return createDate;
     }
 

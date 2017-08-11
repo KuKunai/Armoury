@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,17 @@ import android.widget.Toast;
 
 import com.minipg.fanster.armoury.R;
 import com.minipg.fanster.armoury.adapter.TopicListAdapter;
+import com.minipg.fanster.armoury.dao.CategoryItemDao;
 import com.minipg.fanster.armoury.dao.TopicItemDao;
+import com.minipg.fanster.armoury.manager.HttpManager;
 import com.minipg.fanster.armoury.manager.bus.Contextor;
 
+import java.io.IOException;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -77,7 +85,37 @@ public class TopicListFragment extends Fragment {
         recycleView = (RecyclerView) rootView.findViewById(R.id.recycleViewTopicList);
         recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recycleView.setAdapter(topicListAdapter);
+        if (savedInstanceState == null) {
+            loadData();
+        }
     }
+
+    private void loadData() {
+        Call<List<TopicItemDao>> call = HttpManager.getInstance().getService().loadTopicListByType(categoryName);
+        call.enqueue(new Callback<List<TopicItemDao>>() {
+            @Override
+            public void onResponse(Call<List<TopicItemDao>> call, Response<List<TopicItemDao>> response) {
+//                if(response.isSuccessful()){
+                    topicListAdapter.setData(response.body());
+                    topicListAdapter.notifyDataSetChanged();
+                    showToast("Load Completed");
+                    Log.d("sssssssss", "onResponse: " + response.body().size());
+//                } else {
+//                    try {
+//                        showToast(response.errorBody().string());
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+            }
+
+            @Override
+            public void onFailure(Call<List<TopicItemDao>> call, Throwable t) {
+
+            }
+        });
+    }
+
 
     @Override
     public void onStart() {
