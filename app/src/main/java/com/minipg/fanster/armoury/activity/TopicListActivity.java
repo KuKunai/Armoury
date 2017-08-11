@@ -36,6 +36,7 @@ public class TopicListActivity extends AppCompatActivity {
 
     private void initInstance() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Category");
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
