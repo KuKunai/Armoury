@@ -23,12 +23,13 @@ public class TopicActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topic);
+        initInstance();
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.topicContainer, TopicFragment.newInstance()) //MainFragment.newInstance())
                     .commit();
         }
-        initInstance();
+
     }
 
     private void initInstance() {

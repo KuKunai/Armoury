@@ -10,18 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.minipg.fanster.armoury.R;
 import com.minipg.fanster.armoury.adapter.CategoryAdapter;
 import com.minipg.fanster.armoury.dao.CategoryItemDao;
 import com.minipg.fanster.armoury.manager.HttpManager;
-import com.minipg.fanster.armoury.manager.CategoryListManager;
 import com.minipg.fanster.armoury.manager.bus.Contextor;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,7 +31,6 @@ public class TabCategoryFragment extends Fragment {
     private CategoryAdapter categoryListAdapter;
     private RecyclerView listView;
     private List<CategoryItemDao> categoryList;
-    private CategoryListManager categoryListManager;
 
     public TabCategoryFragment() {
         super();
@@ -68,7 +63,6 @@ public class TabCategoryFragment extends Fragment {
 
     private void init(Bundle savedInstanceState) {
         // Init Fragment level's variable(s) here
-        categoryListManager = new CategoryListManager();
     }
 
     private void mockDao() {

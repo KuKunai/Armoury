@@ -8,10 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.minipg.fanster.armoury.R;
 import com.minipg.fanster.armoury.adapter.TopicListAdapter;
 import com.minipg.fanster.armoury.dao.TopicItemDao;
+import com.minipg.fanster.armoury.manager.bus.Contextor;
 
 import java.util.List;
 
@@ -21,20 +23,22 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public class TopicListFragment extends Fragment {
-
+    private static final String KEY_CATEGORY = "category";
     private View mView;
     private RecyclerView recycleView;
     private List<TopicItemDao> topicList;
     private TopicListAdapter topicListAdapter;
+    private String categoryName;
 
     public TopicListFragment() {
         super();
     }
 
     @SuppressWarnings("unused")
-    public static TopicListFragment newInstance() {
+    public static TopicListFragment newInstance(String category) {
         TopicListFragment fragment = new TopicListFragment();
         Bundle args = new Bundle();
+        args.putString(KEY_CATEGORY, category);
         fragment.setArguments(args);
         return fragment;
     }
@@ -43,7 +47,12 @@ public class TopicListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         init(savedInstanceState);
-
+        Bundle bundle = getArguments();
+        if(bundle != null)
+            categoryName = bundle.getString(KEY_CATEGORY);
+        else
+            categoryName = "Category";
+        showToast(categoryName);
         if (savedInstanceState != null)
             onRestoreInstanceState(savedInstanceState);
     }
@@ -95,6 +104,12 @@ public class TopicListFragment extends Fragment {
     @SuppressWarnings("UnusedParameters")
     private void onRestoreInstanceState(Bundle savedInstanceState) {
         // Restore Instance State here
+    }
+
+    private void showToast(String text) {
+        Toast.makeText(Contextor.getInstance().getContext(),
+                text,
+                Toast.LENGTH_SHORT).show();
     }
 
 }

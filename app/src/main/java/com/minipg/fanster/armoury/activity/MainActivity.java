@@ -126,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
                 //TODO: Clear user
+                close = true;
                 finish();
             }
         });

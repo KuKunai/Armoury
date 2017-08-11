@@ -15,8 +15,6 @@ import com.minipg.fanster.armoury.activity.LoginActivity;
 import com.minipg.fanster.armoury.activity.TopicListActivity;
 import com.minipg.fanster.armoury.dao.CategoryItemDao;
 import com.minipg.fanster.armoury.fragment.TabCategoryFragment;
-import com.minipg.fanster.armoury.manager.CategoryListManager;
-import com.minipg.fanster.armoury.view.CategoryListItem;
 
 import java.util.List;
 import java.util.Locale;
@@ -24,45 +22,6 @@ import java.util.Locale;
 /**
  * Created by MFEC on 8/7/2017.
  */
-
-//public class CategoryAdapter extends BaseAdapter {
-//
-//    List<CategoryItemDao> dao;
-//
-//    public void setDao(List<CategoryItemDao> dao) {
-//        this.dao = dao;
-//    }
-//
-//    @Override
-//    public int getCount() {
-//        if (dao == null)
-//            return 0;
-//        return dao.size();
-//    }
-//
-//    @Override
-//    public Object getItem(int i) {
-//        return CategoryListManager.getInstance().getDao().get(i);
-//    }
-//
-//    @Override
-//    public long getItemId(int i) {
-//        return 0;
-//    }
-//
-//    @Override
-//    public View getView(int i, View view, ViewGroup viewGroup) {
-//        CategoryListItem item;
-//        if(view != null)
-//            item = (CategoryListItem) view;
-//        else
-//            item = new CategoryListItem(viewGroup.getContext());
-//        CategoryItemDao dao = (CategoryItemDao) getItem(i);
-//        item.setCategory(dao.getName());
-//        item.setAmount(i);
-//        return item;
-//    }
-//}
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryListItemHolder>{
 
