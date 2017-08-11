@@ -71,7 +71,7 @@ public class TabCategoryFragment extends Fragment {
         categoryListManager = new CategoryListManager();
     }
 
-    private void mockDao(){
+    private void mockDao() {
         categoryList = new ArrayList<>();
         categoryList.add(new CategoryItemDao("Android"));
         categoryList.add(new CategoryItemDao("IOS"));
@@ -85,33 +85,38 @@ public class TabCategoryFragment extends Fragment {
         mockDao();
         listView = (RecyclerView) rootView.findViewById(R.id.rc_list);
         listView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        categoryListAdapter = new CategoryAdapter(this,categoryList,TabCategoryFragment.this);
+        categoryListAdapter = new CategoryAdapter(this, categoryList, TabCategoryFragment.this);
         listView.setAdapter(categoryListAdapter);
-//        Call<List<CategoryItemDao>> call = HttpManager.getInstance().getService().loadAllCategoryList();
-//        call.enqueue(new Callback<List<CategoryItemDao>>() {
-//            @Override
-//            public void onResponse(Call<List<CategoryItemDao>> call, Response<List<CategoryItemDao>> response) {
-//                if (response.isSuccessful()) {
-//                    List<CategoryItemDao> dao = response.body();
-//                    if(dao!=null)
-//                        categoryList =dao;
-//                    categoryListAdapter.notifyDataSetChanged();
-//                    showToast("Load Completed");
-//                } else {
-//                    try {
-//                        showToast(response.errorBody().string());
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<CategoryItemDao>> call, Throwable t) {
-//
-//            }
-//        });
+        if (savedInstanceState == null)
+            loadData();
+    }
+
+    private void loadData() {
+        Call<List<CategoryItemDao>> call = HttpManager.getInstance().getService().loadAllCategoryList();
+        call.enqueue(new Callback<List<CategoryItemDao>>() {
+            @Override
+            public void onResponse(Call<List<CategoryItemDao>> call, Response<List<CategoryItemDao>> response) {
+                if (response.isSuccessful()) {
+                    List<CategoryItemDao> dao = response.body();
+                    categoryListAdapter.setData(dao);
+                    categoryListAdapter.notifyDataSetChanged();
+                    showToast("Load Completed");
+                } else {
+                    try {
+                        showToast(response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<CategoryItemDao>> call, Throwable t) {
+
+            }
+
+
+        });
     }
 
     private void showToast(String text) {

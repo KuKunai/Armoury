@@ -3,6 +3,7 @@ package com.minipg.fanster.armoury.adapter;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +70,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     List<CategoryItemDao> categoryList;
     TabCategoryFragment fragmentCategory1;
     CategoryItemDao dao;
+    private List<CategoryItemDao> data;
 
     public CategoryAdapter(TabCategoryFragment fragmentCategory, List<CategoryItemDao> categoryList, TabCategoryFragment fragmentCategory1){
         this.fragmentCategory = fragmentCategory;
@@ -84,7 +86,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     }
 
     @Override
-    public void onBindViewHolder(CategoryListItemHolder holder, int position) {
+    public void onBindViewHolder(CategoryListItemHolder holder, final int position) {
         if(categoryList!=null)
             dao = categoryList.get(position);
         if(dao!=null)
@@ -96,6 +98,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(fragmentCategory.getActivity(), TopicListActivity.class);
+                intent.putExtra("type_device" ,categoryList.get(position).getName());
                 fragmentCategory1.startActivity(intent);
             }
         });
@@ -120,6 +123,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             tvCate = (TextView) itemView.findViewById(R.id.tvCategory);
             tvAmount = (TextView) itemView.findViewById(R.id.tvAmount);
             cardView = (CardView) itemView.findViewById(R.id.cardViewCategory);
+        }
+    }
+
+    public void setData(List<CategoryItemDao> data){
+        if(data!=null) {
+            Log.d("ssss", "onResponse: " + data.get(2).getName());
+            this.categoryList = data;
         }
     }
 }
