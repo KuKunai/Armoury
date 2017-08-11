@@ -31,7 +31,7 @@ public class HttpManager {
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("52.221.197.204:8080/ShareService/api/")
+                .baseUrl("http://52.221.197.204:8080/ShareService/api/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 

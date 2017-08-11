@@ -20,8 +20,8 @@ public interface ApiService {
     @GET("topic/getalltopic")
     Call<TopicItemDao> loadAllTopicList();
 
-    @GET("topic/get/{category}")
-    Call<TopicItemDao> loadTopicListByType(@Path("category") String category);
+    @GET("topic/get-by-category/{cate}")
+    Call<List<TopicItemDao>> loadTopicListByType(@Path("cate") String name);
 
     @GET("category/getallcategory")
     Call<List<CategoryItemDao>> loadAllCategoryList();
