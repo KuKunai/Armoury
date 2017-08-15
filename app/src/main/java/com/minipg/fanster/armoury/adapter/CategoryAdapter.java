@@ -47,11 +47,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public void onBindViewHolder(CategoryListItemHolder holder, final int position) {
         if(categoryList!=null)
             dao = categoryList.get(position);
-        if(dao!=null)
+        if(dao!=null){
             holder.tvCate.setText(dao.getName());
-        else
+            holder.tvAmount.setText(dao.getAmount()+" Topic");
+        }
+        else{
             holder.tvCate.setText("IOS");
-        holder.tvAmount.setText("Amount : "+ position+1);
+            holder.tvAmount.setText("Unknow Topic");
+        }
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,7 +89,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     public void setData(List<CategoryItemDao> data){
         if(data!=null) {
-            Log.d("ssss", "onResponse: " + data.get(2).getName());
             this.categoryList = data;
         }
     }

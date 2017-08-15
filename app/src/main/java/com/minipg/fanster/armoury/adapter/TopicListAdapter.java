@@ -57,7 +57,7 @@ public class TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.Topi
     public void onBindViewHolder(TopicListItemHolder holder, final int position) {
         if (topicList != null) {
 
-            holder.tvTitle.setText(topicList.get(position).getHead());
+            holder.tvTitle.setText(topicList.get(position).getTitle());
             holder.tvAuthor.setText("by " + topicList.get(position).getPoster());
             holder.tvStory.setText(topicList.get(position).getDescription());
             holder.tvDate.setText(convertUnixToDate(topicList.get(position).getCreateDate()));
@@ -68,7 +68,7 @@ public class TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.Topi
             public void onClick(View view) {
                 Intent intent = new Intent(fragmentTopic.getActivity(), TopicActivity.class);
                 Bundle topicBundle = new Bundle();
-                topicBundle.putString(KEY_HEAD ,topicList.get(position).getHead());
+                topicBundle.putString(KEY_HEAD ,topicList.get(position).getTitle());
                 topicBundle.putString(KEY_DESC ,topicList.get(position).getDescription());
                 topicBundle.putLong(KEY_DATE ,topicList.get(position).getCreateDate());
                 topicBundle.putString(KEY_ID ,topicList.get(position).getId());

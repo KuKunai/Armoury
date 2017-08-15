@@ -11,9 +11,9 @@ public class TopicItemDao {
     @SerializedName("id")
     @Expose
     private String id;
-    @SerializedName("head")
+    @SerializedName("title")
     @Expose
-    private String head;
+    private String title;
     @SerializedName("description")
     @Expose
     private String description;
@@ -29,6 +29,9 @@ public class TopicItemDao {
     @SerializedName("poster")
     @Expose
     private String poster;
+    @SerializedName("posterId")
+    @Expose
+    private String posterId;
     @SerializedName("createDate")
     @Expose
     private long createDate;
@@ -41,13 +44,6 @@ public class TopicItemDao {
         this.id = id;
     }
 
-    public String getHead() {
-        return head;
-    }
-
-    public void setHead(String head) {
-        this.head = head;
-    }
 
     public String getDescription() {
         return description;
@@ -77,10 +73,6 @@ public class TopicItemDao {
         return score;
     }
 
-    public void setScore(Integer score) {
-        this.score = score;
-    }
-
     public String getPoster() {
         return poster;
     }
@@ -89,11 +81,31 @@ public class TopicItemDao {
         this.poster = poster;
     }
 
-    public long getCreateDate() {
-        return createDate;
+    public String getTitle() {
+        return title;
     }
 
-    public void setCreateDate(Integer createDate) {
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public String getPosterId() {
+        return posterId;
+    }
+
+    public void setPosterId(String posterId) {
+        this.posterId = posterId;
+    }
+
+    public void setCreateDate(long createDate) {
         this.createDate = createDate;
+    }
+
+    public long getCreateDate() {
+        return createDate;
     }
 }

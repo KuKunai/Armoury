@@ -14,6 +14,17 @@ public class CategoryItemDao {
     @SerializedName("name")
     @Expose
     private String name;
+    @SerializedName("amount")
+    @Expose
+    private int amount;
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 
     public CategoryItemDao(){
 

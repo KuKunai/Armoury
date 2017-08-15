@@ -103,13 +103,13 @@ public class TopicFragment extends Fragment {
             tvAuthor.setText("by " + topic.getString(KEY_POSTER));
             tvDate.setText("Posted on " + convertUnixToDate(topic.getLong(KEY_DATE)));
             tvDescribtion.setText(topic.getString(KEY_DESC));
-            String html = "Link => <a href =\""+ topic.getString(KEY_LINK) + "\">" + topic.getString(KEY_LINK) + "</a>";
+            String html = "Link => <a href =\"" + topic.getString(KEY_LINK) + "\">" + topic.getString(KEY_LINK) + "</a>";
 //            String html = "<a href =\"http://www.apple.com\">Test</a>";
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
                 tvLink.setText(Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY));
             else
                 tvLink.setText(Html.fromHtml(html));
-            tvLink. setMovementMethod(LinkMovementMethod.getInstance());
+            tvLink.setMovementMethod(LinkMovementMethod.getInstance());
             tvLike.setText(topic.getInt(KEY_LIKE) + " Liked");
         }
     }
@@ -167,7 +167,7 @@ public class TopicFragment extends Fragment {
         String textTitle = tvTitle.getText() + " " + tvAuthor.getText();
         intent.putExtra(Intent.EXTRA_SUBJECT, textTitle);
         intent.putExtra(Intent.EXTRA_TITLE, textTitle);
-        intent.putExtra(Intent.EXTRA_TEXT, tvDescribtion.getText());
+        intent.putExtra(Intent.EXTRA_TEXT, tvDescribtion.getText() + "\n" + tvLink.getText());
         return intent;
     }
 }

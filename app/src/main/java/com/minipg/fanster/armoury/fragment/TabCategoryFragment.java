@@ -3,6 +3,7 @@ package com.minipg.fanster.armoury.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ public class TabCategoryFragment extends Fragment {
     private CategoryAdapter categoryListAdapter;
     private RecyclerView recyclerView;
     private List<CategoryItemDao> categoryList;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public TabCategoryFragment() {
         super();
@@ -78,6 +80,15 @@ public class TabCategoryFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         categoryListAdapter = new CategoryAdapter(this, categoryList, TabCategoryFragment.this);
         recyclerView.setAdapter(categoryListAdapter);
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshCategory);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadData();
+                showToast("Refresh");
+            }
+        });
         if (savedInstanceState == null)
             loadData();
     }
@@ -87,6 +98,7 @@ public class TabCategoryFragment extends Fragment {
         call.enqueue(new Callback<List<CategoryItemDao>>() {
             @Override
             public void onResponse(Call<List<CategoryItemDao>> call, Response<List<CategoryItemDao>> response) {
+                swipeRefreshLayout.setRefreshing(false);
                 if (response.isSuccessful()) {
                     List<CategoryItemDao> dao = response.body();
                     categoryListAdapter.setData(dao);
@@ -103,9 +115,9 @@ public class TabCategoryFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<CategoryItemDao>> call, Throwable t) {
+                swipeRefreshLayout.setRefreshing(false);
                 showToast("Load Fail");
             }
-
 
         });
     }
