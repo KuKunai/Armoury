@@ -11,4 +11,5 @@
     <style name="ProgressBarsStyle" parent="@android:style/Widget.Holo.ProgressBar.Horizontal">
     </style>
 
+
 </resources>

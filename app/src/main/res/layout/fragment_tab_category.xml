@@ -10,13 +10,20 @@
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="match_parent" />-->
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rc_list"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshCategory"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        style="@style/RefreshStyle">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rc_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:visibility="gone"
         android:id="@+id/floatingButtonAddCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,7 +33,8 @@
         android:alpha="0.8"
         android:clickable="true"
         android:src="@mipmap/ic_add"
+        android:visibility="gone"
         app:fabSize="normal"
-        app:layout_anchor="@id/rc_list" />
+        app:layout_anchor="@id/swipeRefreshCategory" />
 
 </RelativeLayout>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ProgressBarsStyle" parent="@android:style/Widget.Material.ProgressBar.Horizontal">
+    </style>
+
+    <style name="RefreshStyle" parent="@android:style/Widget.Material.ProgressBar">
+    </style>
+
+</resources>
