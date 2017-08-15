@@ -60,7 +60,7 @@ public class TopicListFragment extends Fragment {
             categoryName = bundle.getString(KEY_CATEGORY);
         else
             categoryName = "Category";
-        showToast(categoryName);
+        //showToast(categoryName);
         if (savedInstanceState != null)
             onRestoreInstanceState(savedInstanceState);
     }
@@ -95,23 +95,22 @@ public class TopicListFragment extends Fragment {
         call.enqueue(new Callback<List<TopicItemDao>>() {
             @Override
             public void onResponse(Call<List<TopicItemDao>> call, Response<List<TopicItemDao>> response) {
-//                if(response.isSuccessful()){
+                if(response.isSuccessful()){
                     topicListAdapter.setData(response.body());
                     topicListAdapter.notifyDataSetChanged();
-                    showToast("Load Completed");
-                    Log.d("sssssssss", "onResponse: " + response.body().size());
-//                } else {
-//                    try {
-//                        showToast(response.errorBody().string());
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
+
+                } else {
+                    try {
+                        showToast(response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
             @Override
             public void onFailure(Call<List<TopicItemDao>> call, Throwable t) {
-
+                showToast("Load Fail");
             }
         });
     }

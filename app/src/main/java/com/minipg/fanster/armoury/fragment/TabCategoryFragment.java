@@ -91,7 +91,7 @@ public class TabCategoryFragment extends Fragment {
                     List<CategoryItemDao> dao = response.body();
                     categoryListAdapter.setData(dao);
                     categoryListAdapter.notifyDataSetChanged();
-                    showToast("Load Completed");
+                    //showToast("Load Completed");
                 } else {
                     try {
                         showToast(response.errorBody().string());
@@ -103,7 +103,7 @@ public class TabCategoryFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<CategoryItemDao>> call, Throwable t) {
-
+                showToast("Load Fail");
             }
 
 

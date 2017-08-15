@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:freezesText="true"
                     android:gravity="center"
-                    android:text="Ranking : 12500"
+                    android:text="Score : 12500"
                     android:textSize="14sp" />
 
 

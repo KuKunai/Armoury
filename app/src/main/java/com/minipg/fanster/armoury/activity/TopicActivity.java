@@ -24,9 +24,10 @@ public class TopicActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topic);
         initInstance();
+        Bundle topicBundle = getIntent().getBundleExtra("topicBundle");
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.topicContainer, TopicFragment.newInstance()) //MainFragment.newInstance())
+                    .add(R.id.topicContainer, TopicFragment.newInstance(topicBundle)) //MainFragment.newInstance())
                     .commit();
         }
 
