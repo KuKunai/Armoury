@@ -41,13 +41,15 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 user = new User(etUser.getText().toString(), etPW.getText().toString());
                 if (user.getPassword().toString().length() == 0
-                        && user.getUsername().toString().length() == 0)
+                        && user.getUsername().toString().length() == 0) {
+                    etUser.setError("Username is required!");
+                    etPW.setError("Password is required!");
                     showToast("Please insert Username & Password");
-                else {
-                    if (user.getPassword().toString().length() == 0) {
-                        etPW.setError("Username is required!");
+                } else {
+                    if (user.getUsername().toString().length() == 0) {
+                        etUser.setError("Username is required!");
                         showToast("Username is required!");
-                    } else if (user.getUsername().toString().length() == 0) {
+                    } else if (user.getPassword().toString().length() == 0) {
                         etPW.setError("Password is required!");
                         showToast("Password is required!");
                     } else
