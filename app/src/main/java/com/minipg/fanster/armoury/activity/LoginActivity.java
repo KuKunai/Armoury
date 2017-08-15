@@ -17,6 +17,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button submit;
     private EditText etUser;
     private EditText etPW;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,40 +27,52 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initInstance() {
-        etUser = (EditText)findViewById(R.id.et_username);
-        etPW = (EditText)findViewById(R.id.et_password);
+        etUser = (EditText) findViewById(R.id.et_username);
+        etPW = (EditText) findViewById(R.id.et_password);
         setHideKeyboard(etPW);
         setHideKeyboard(etUser);
-        submit = (Button)findViewById(R.id.bt_go);
+        submit = (Button) findViewById(R.id.bt_go);
         login();
     }
 
     private void login() {
-        User user = new User(etUser.getText().toString(),etPW.getText().toString());
-        showToast(user.getUsername()+" "+user.getPassword());
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intentToMain();
+                user = new User(etUser.getText().toString(), etPW.getText().toString());
+                if (user.getPassword().toString().length() == 0
+                        && user.getUsername().toString().length() == 0)
+                    showToast("Please insert Username & Password");
+                else {
+                    if (user.getPassword().toString().length() == 0) {
+                        etPW.setError("Username is required!");
+                        showToast("Username is required!");
+                    } else if (user.getUsername().toString().length() == 0) {
+                        etPW.setError("Password is required!");
+                        showToast("Password is required!");
+                    } else
+                        showToast(user.getUsername() + " " + user.getPassword());
+                }
+                //intentToMain();
             }
         });
     }
 
     private void showToast(String username) {
-        Toast.makeText(LoginActivity.this, username, Toast.LENGTH_SHORT).show();
+        Toast.makeText(LoginActivity.this, username.toString(), Toast.LENGTH_SHORT).show();
     }
 
-    private void intentToMain(){
-        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+    private void intentToMain() {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
     }
 
-    private void setHideKeyboard(final EditText editText){
+    private void setHideKeyboard(final EditText editText) {
         editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (!b) {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
                 }
             }
