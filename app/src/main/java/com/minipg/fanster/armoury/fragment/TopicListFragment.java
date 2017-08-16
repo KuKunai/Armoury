@@ -3,6 +3,7 @@ package com.minipg.fanster.armoury.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -37,6 +38,7 @@ public class TopicListFragment extends Fragment {
     private List<TopicItemDao> topicList;
     private TopicListAdapter topicListAdapter;
     private String categoryName;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public TopicListFragment() {
         super();
@@ -73,6 +75,12 @@ public class TopicListFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
+    }
+
     private void init(Bundle savedInstanceState) {
         // Init Fragment level's variable(s) here
     }
@@ -85,6 +93,15 @@ public class TopicListFragment extends Fragment {
         recycleView = (RecyclerView) rootView.findViewById(R.id.recycleViewTopicList);
         recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recycleView.setAdapter(topicListAdapter);
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshTopicList);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadData();
+                showToast("Refreshed");
+            }
+        });
         if (savedInstanceState == null) {
             loadData();
         }
@@ -95,6 +112,7 @@ public class TopicListFragment extends Fragment {
         call.enqueue(new Callback<List<TopicItemDao>>() {
             @Override
             public void onResponse(Call<List<TopicItemDao>> call, Response<List<TopicItemDao>> response) {
+                swipeRefreshLayout.setRefreshing(false);
                 if(response.isSuccessful()){
                     topicListAdapter.setData(response.body());
                     topicListAdapter.notifyDataSetChanged();
@@ -110,6 +128,7 @@ public class TopicListFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<TopicItemDao>> call, Throwable t) {
+                swipeRefreshLayout.setRefreshing(false);
                 showToast("Load Fail");
             }
         });

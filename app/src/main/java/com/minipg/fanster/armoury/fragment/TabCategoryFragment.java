@@ -60,6 +60,12 @@ public class TabCategoryFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
+    }
+
     private void init(Bundle savedInstanceState) {
         // Init Fragment level's variable(s) here
     }
@@ -86,7 +92,7 @@ public class TabCategoryFragment extends Fragment {
             @Override
             public void onRefresh() {
                 loadData();
-                showToast("Refresh");
+                showToast("Refreshed");
             }
         });
         if (savedInstanceState == null)

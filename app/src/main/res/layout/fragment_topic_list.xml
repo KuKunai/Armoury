@@ -5,18 +5,25 @@
     android:layout_height="match_parent"
     android:background="@color/colorBg">
 
-    <LinearLayout
-        android:id="@+id/linearLayoutTopicList"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshTopicList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        style="@style/RefreshStyle">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycleViewTopicList"
+        <LinearLayout
+            android:id="@+id/linearLayoutTopicList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycleViewTopicList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingButtonAddTopic"
