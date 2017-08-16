@@ -45,12 +45,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
-
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.viewPager, TabProfileFragment.newInstance(), "TabProfileFragment") //MainFragment.newInstance(), "MainFragment")
-                .commit();
-
-
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Profile");
+        setSupportActionBar(toolbar);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.viewPager, TabProfileFragment.newInstance()) //MainFragment.newInstance())
@@ -62,19 +59,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initInstance() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
         //Logout Dialog
         initLogoutDialog();
         //Back press Dialog
         initBackDialog();
         //View Play
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-        PageAdapter pageAdapter = new PageAdapter(getSupportFragmentManager());
+        final PageAdapter pageAdapter = new PageAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pageAdapter);
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
         createTabIcons(tabLayout);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                toolbar.setTitle(pageAdapter.getPageTitle(tab.getPosition()));
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
     }
 
     private void initBackDialog() {
@@ -133,10 +143,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createTabIcons(TabLayout tabLayout) {
-        tabLayout.getTabAt(0).setIcon(R.mipmap.ic_profile).setText(R.string.tab_profile_title);
-        tabLayout.getTabAt(1).setIcon(R.mipmap.ic_library_white).setText(R.string.tab_library_title);
-        tabLayout.getTabAt(2).setIcon(R.mipmap.ic_rating).setText(R.string.tab_popular_title);
-        tabLayout.getTabAt(3).setIcon(R.mipmap.ic_faverite).setText(R.string.tab_liked_title);
+        tabLayout.getTabAt(0).setIcon(R.mipmap.ic_profile).setText(null);
+        tabLayout.getTabAt(1).setIcon(R.mipmap.ic_library_white).setText(null);
+        tabLayout.getTabAt(2).setIcon(R.mipmap.ic_rating).setText(null);
+        tabLayout.getTabAt(3).setIcon(R.mipmap.ic_faverite).setText(null);
     }
 
     @Override

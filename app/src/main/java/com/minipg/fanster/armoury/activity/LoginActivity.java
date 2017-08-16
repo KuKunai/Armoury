@@ -1,7 +1,10 @@
 package com.minipg.fanster.armoury.activity;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -23,11 +26,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.minipg.fanster.armoury.R.id.fab;
+
 public class LoginActivity extends AppCompatActivity {
     private Button submit;
     private EditText etUser;
     private EditText etPW;
     private User user;
+    private FloatingActionButton register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +48,21 @@ public class LoginActivity extends AppCompatActivity {
         setHideKeyboard(etPW);
         setHideKeyboard(etUser);
         submit = (Button) findViewById(R.id.bt_go);
-        login();
+        register = (FloatingActionButton) findViewById(fab);
+        initRegister();
+        initLogin();
     }
 
-    private void login() {
+    private void initRegister() {
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            }
+        });
+    }
+
+    private void initLogin() {
         etUser.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -80,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 String location_name = s.toString();
                 if (location_name.matches(".*[^A-Za-z^0-9_].*")) {
-                    etUser.setError("Only letters, numbers and underscore are allowed!");
+                    etPW.setError("Only letters, numbers and underscore are allowed!");
                 }
             }
         });

@@ -9,4 +9,8 @@
     <string name="tab_popular_title">Popular</string>
     <string name="tab_liked_title">Liked</string>
     <string name="tab_library_title">Library</string>
+    <string name="go">GO</string>
+    <string name="repeat_password">Repeat Password</string>
+    <string name="next">NEXT</string>
+    <string name="register">REGISTER</string>
 </resources>

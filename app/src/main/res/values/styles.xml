@@ -8,8 +8,20 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="ProgressBarsStyle" parent="@android:style/Widget.Holo.ProgressBar.Horizontal">
-    </style>
+    <style name="ProgressBarsStyle" parent="@android:style/Widget.Holo.ProgressBar.Horizontal"></style>
 
+    <style name="Translucent" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+
+    </style>
+    <style name="TextLabel" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <!--<item name="colorControlActivated">#FFCC00</item>-->
+        <item name="colorControlActivated">#FFCC00</item>
+    </style>
 
 </resources>
