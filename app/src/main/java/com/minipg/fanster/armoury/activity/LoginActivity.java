@@ -66,14 +66,10 @@ public class LoginActivity extends AppCompatActivity {
         etUser.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //TODO
             }
-
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //TODO
             }
-
             @Override
             public void afterTextChanged(Editable s) {
                 String location_name = s.toString();
@@ -85,14 +81,10 @@ public class LoginActivity extends AppCompatActivity {
         etPW.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //TODO
             }
-
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //TODO
             }
-
             @Override
             public void afterTextChanged(Editable s) {
                 String location_name = s.toString();
@@ -118,11 +110,9 @@ public class LoginActivity extends AppCompatActivity {
                         etPW.setError("Password is required!");
                         showToast("Password is required!");
                     } else {
-                        //showToast(user.getUsername() + " " + user.getPassword());
                         sendLoginData(user);
                     }
                 }
-                //intentToMain();
             }
         });
     }
@@ -141,7 +131,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else {
                     try {
-                        showToast("NOOB");
                         showToast(response.errorBody().string());
                     } catch (IOException e) {
                         e.printStackTrace();

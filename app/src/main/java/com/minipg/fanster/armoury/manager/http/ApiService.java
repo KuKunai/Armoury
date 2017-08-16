@@ -5,6 +5,7 @@ import com.minipg.fanster.armoury.dao.CategoryItemDao;
 import com.minipg.fanster.armoury.dao.LoginResponseItemDao;
 import com.minipg.fanster.armoury.dao.TopicItemDao;
 import com.minipg.fanster.armoury.dao.UserDao;
+import com.minipg.fanster.armoury.object.RegisterForm;
 import com.minipg.fanster.armoury.object.User;
 
 import java.util.List;
@@ -26,6 +27,12 @@ public interface ApiService {
 
     @POST("login")
     Call<LoginResponseItemDao> login(@Body User userObject);
+
+    @POST("user/register")  //TODO change ResponseItem
+    Call<LoginResponseItemDao> register(@Body RegisterForm userObject);
+
+    @GET("topic/get-by-id/{id}")
+    Call<TopicItemDao> loadTopicById(@Path("id") String id);
 
     @GET("topic/get-by-category/{cate}")
     Call<List<TopicItemDao>> loadTopicListByType(@Path("cate") String name);
