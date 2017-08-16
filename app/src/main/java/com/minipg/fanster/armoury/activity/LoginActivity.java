@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -11,7 +13,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.minipg.fanster.armoury.R;
+import com.minipg.fanster.armoury.dao.LoginResponseItemDao;
+import com.minipg.fanster.armoury.manager.HttpManager;
 import com.minipg.fanster.armoury.object.User;
+
+import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
     private Button submit;
@@ -36,6 +46,44 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login() {
+        etUser.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //TODO
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //TODO
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String location_name = s.toString();
+                if (location_name.matches(".*[^A-Za-z^0-9_].*")) {
+                    etUser.setError("Only letters, numbers and underscore are allowed!");
+                }
+            }
+        });
+        etPW.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //TODO
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //TODO
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String location_name = s.toString();
+                if (location_name.matches(".*[^A-Za-z^0-9_].*")) {
+                    etUser.setError("Only letters, numbers and underscore are allowed!");
+                }
+            }
+        });
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,10 +100,41 @@ public class LoginActivity extends AppCompatActivity {
                     } else if (user.getPassword().toString().length() == 0) {
                         etPW.setError("Password is required!");
                         showToast("Password is required!");
-                    } else
-                        showToast(user.getUsername() + " " + user.getPassword());
+                    } else {
+                        //showToast(user.getUsername() + " " + user.getPassword());
+                        sendLoginData(user);
+                    }
                 }
                 //intentToMain();
+            }
+        });
+    }
+
+    private void sendLoginData(User user) {
+        Call<LoginResponseItemDao> call = HttpManager.getInstance().getService().login(user);
+        call.enqueue(new Callback<LoginResponseItemDao>() {
+            @Override
+            public void onResponse(Call<LoginResponseItemDao> call, Response<LoginResponseItemDao> response) {
+                if(response.isSuccessful()){
+                    LoginResponseItemDao dao = response.body();
+                    if(dao.isAccess())
+                        intentToMain();
+                    else
+                        showToast("Wrong user & password");
+                }
+                else {
+                    try {
+                        showToast("NOOB");
+                        showToast(response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponseItemDao> call, Throwable t) {
+
             }
         });
     }
