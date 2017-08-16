@@ -9,110 +9,113 @@
     android:paddingRight="4dp">
 
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshTopic"
+        style="@style/ProgressBarsStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <android.support.v4.widget.NestedScrollView
-            android:id="@+id/nestedScrollTopic"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:id="@+id/linearLayoutTopic"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp">
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-                card_view:cardCornerRadius="4dp">
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp">
 
-                <LinearLayout
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="6dp">
+                    android:padding="10dp"
+                    card_view:cardCornerRadius="4dp">
 
-
-                    <TextView
-                        android:id="@+id/tvTitle"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Title"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/tvAuthor"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="by Author"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/tvDate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:text="Date"
-                        android:textSize="12sp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#757575" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp" />
-
-                    <TextView
-                        android:id="@+id/tvStory"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Story\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\n"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/tvLink"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Link => "
-                        android:clickable="true"
-                        android:textSize="12sp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#757575" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp" />
-
-                    <TextView
-                        android:id="@+id/tvLiked"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="1400 Liked"
-                        android:textSize="12sp" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="6dp">
 
 
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/tvTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Title"
+                            android:textSize="18sp" />
 
-            </android.support.v7.widget.CardView>
+                        <TextView
+                            android:id="@+id/tvAuthor"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="by Author"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/tvDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:text="Date"
+                            android:textSize="12sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#757575" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp" />
+
+                        <TextView
+                            android:id="@+id/tvStory"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Story\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\nStory\n"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tvLink"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:text="Link => "
+                            android:textSize="12sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#757575" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp" />
+
+                        <TextView
+                            android:id="@+id/tvLiked"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="1400 Liked"
+                            android:textSize="12sp" />
+
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
-
-
-
-
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingButtonAdd"
@@ -125,6 +128,6 @@
         android:clickable="true"
         android:src="@mipmap/ic_faverite"
         app:fabSize="normal"
-        app:layout_anchor="@id/nestedScrollTopic" />
+        app:layout_anchor="@id/swipeRefreshTopic" />
 
 </RelativeLayout>

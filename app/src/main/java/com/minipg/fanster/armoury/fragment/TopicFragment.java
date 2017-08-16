@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.ShareActionProvider;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -18,11 +19,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.minipg.fanster.armoury.R;
+import com.minipg.fanster.armoury.dao.TopicItemDao;
+import com.minipg.fanster.armoury.manager.HttpManager;
+import com.minipg.fanster.armoury.manager.bus.Contextor;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -47,6 +57,8 @@ public class TopicFragment extends Fragment {
     final String KEY_POSTER = "author";
     final String KEY_DATE = "date";
     final String KEY_ID = "topicId";
+    private TopicItemDao dao;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public TopicFragment() {
         super();
@@ -87,6 +99,11 @@ public class TopicFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
+    }
 
     @SuppressWarnings("UnusedParameters")
     private void initInstances(View rootView, Bundle savedInstanceState) {
@@ -99,19 +116,67 @@ public class TopicFragment extends Fragment {
         tvLike = (TextView) rootView.findViewById(R.id.tvLiked);
         tvLink = (TextView) rootView.findViewById(R.id.tvLink);
         if (topic != null) {
-            tvTitle.setText(topic.getString(KEY_HEAD));
-            tvAuthor.setText("by " + topic.getString(KEY_POSTER));
-            tvDate.setText("Posted on " + convertUnixToDate(topic.getLong(KEY_DATE)));
-            tvDescribtion.setText(topic.getString(KEY_DESC));
-            String html = "Link => <a href =\"" + topic.getString(KEY_LINK) + "\">" + topic.getString(KEY_LINK) + "</a>";
-//            String html = "<a href =\"http://www.apple.com\">Test</a>";
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
-                tvLink.setText(Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY));
-            else
-                tvLink.setText(Html.fromHtml(html));
-            tvLink.setMovementMethod(LinkMovementMethod.getInstance());
-            tvLike.setText(topic.getInt(KEY_LIKE) + " Liked");
+            initView(topic.getString(KEY_HEAD),
+                    topic.getString(KEY_POSTER),
+                    topic.getLong(KEY_DATE),
+                    topic.getString(KEY_DESC),
+                    topic.getString(KEY_LINK),
+                    topic.getInt(KEY_LIKE));
         }
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshTopic);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadData();
+                showToast("Refreshed");
+            }
+        });
+        if (savedInstanceState == null)
+            loadData();
+    }
+
+    private void initView(String title, String poster, long date, String desc, String link, int score) {
+        tvTitle.setText(title);
+        tvAuthor.setText("by " + poster);
+        tvDate.setText("Posted on " + convertUnixToDate(date));
+        tvDescribtion.setText(desc);
+        String html = "Link => <a href =\"" + link + "\">" + link + "</a>";
+//            String html = "<a href =\"http://www.apple.com\">Test</a>";
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+            tvLink.setText(Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY));
+        else
+            tvLink.setText(Html.fromHtml(html));
+        tvLink.setMovementMethod(LinkMovementMethod.getInstance());
+        tvLike.setText(score + " Liked");
+    }
+
+    private void loadData() {
+        Call<TopicItemDao> call = HttpManager.getInstance().getService().loadTopicById(topic.getString(KEY_ID));
+        call.enqueue(new Callback<TopicItemDao>() {
+            @Override
+            public void onResponse(Call<TopicItemDao> call, Response<TopicItemDao> response) {
+                swipeRefreshLayout.setRefreshing(false);
+                if (response.isSuccessful()) {
+                    dao = response.body();
+                    if (dao != null) {
+                        initView(dao.getTitle(), dao.getPoster(),dao.getCreateDate(),dao.getDescription(),dao.getLink(),dao.getScore());
+                    }
+                } else {
+                    try {
+                        showToast(response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TopicItemDao> call, Throwable t) {
+                swipeRefreshLayout.setRefreshing(false);
+                showToast("Load Fail");
+            }
+        });
     }
 
 
@@ -169,5 +234,11 @@ public class TopicFragment extends Fragment {
         intent.putExtra(Intent.EXTRA_TITLE, textTitle);
         intent.putExtra(Intent.EXTRA_TEXT, tvDescribtion.getText() + "\n" + tvLink.getText());
         return intent;
+    }
+
+    private void showToast(String text) {
+        Toast.makeText(Contextor.getInstance().getContext(),
+                text,
+                Toast.LENGTH_SHORT).show();
     }
 }
