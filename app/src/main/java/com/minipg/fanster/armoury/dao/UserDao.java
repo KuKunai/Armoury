@@ -35,4 +35,67 @@ public class UserDao {
     @Expose
     private List<UserScoreDao> shared = null;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getTotalLiked() {
+        return totalLiked;
+    }
+
+    public void setTotalLiked(int totalLiked) {
+        this.totalLiked = totalLiked;
+    }
+
+    public List<String> getLikeList() {
+        return likeList;
+    }
+
+    public void setLikeList(List<String> likeList) {
+        this.likeList = likeList;
+    }
+
+    public List<UserScoreDao> getShared() {
+        return shared;
+    }
+
+    public void setShared(List<UserScoreDao> shared) {
+        this.shared = shared;
+    }
 }

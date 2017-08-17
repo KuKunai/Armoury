@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.minipg.fanster.armoury.R;
 import com.minipg.fanster.armoury.dao.LoginResponseItemDao;
+import com.minipg.fanster.armoury.dao.RegisterResponseItemDao;
 import com.minipg.fanster.armoury.manager.HttpManager;
 import com.minipg.fanster.armoury.object.RegisterForm;
 
@@ -140,9 +142,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if (canRegister) {
                     if (etRPW.getText().toString().equals(etPW.getText().toString())) {
                         RegisterForm registerForm = new RegisterForm(etName.getText().toString(), etUser.getText().toString(), etPW.getText().toString());
-                        //TODO send Object
-                        showToast("Register " + registerForm.getName() + " " + registerForm.getUsername() + " " + registerForm.getPassword());
-                        //register(registerForm);
+                        register(registerForm);
                     } else {
                         etRPW.setError("Password not match");
                     }
@@ -151,16 +151,27 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void register(RegisterForm registerForm) {
-        Call<LoginResponseItemDao> call = HttpManager.getInstance().getService().register(registerForm);
-        call.enqueue(new Callback<LoginResponseItemDao>() {
+    private void register(final RegisterForm registerForm) {
+        Call<RegisterResponseItemDao> call = HttpManager.getInstance().getService().register(registerForm);
+        call.enqueue(new Callback<RegisterResponseItemDao>() {
             @Override
-            public void onResponse(Call<LoginResponseItemDao> call, Response<LoginResponseItemDao> response) {
+            public void onResponse(Call<RegisterResponseItemDao> call, Response<RegisterResponseItemDao> response) {
                 if (response.isSuccessful()) {
-                    LoginResponseItemDao dao = response.body();
-                    //TODO handle same UserID
+                    RegisterResponseItemDao dao = response.body();
+                    if(!dao.isCheckName()){
+                        etName.setError(registerForm.getName()+" already exists");
+                    }
+                    if(!dao.isCheckUserName()){
+                        etUser.setError(registerForm.getUsername()+" already exists");
+                    }
+                    if (dao.isCheckUserName() && dao.isCheckName()) {
+                        showToast("Registration Success");
+                        finish();
+                    } else {
+                        showToast("Registration Fail");
+                    }
                     //register
-                    finish();
+
                 } else {
                     try {
                         showToast(response.errorBody().string());
@@ -171,7 +182,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<LoginResponseItemDao> call, Throwable t) {
+            public void onFailure(Call<RegisterResponseItemDao> call, Throwable t) {
                 showToast("Register Fail");
             }
         });

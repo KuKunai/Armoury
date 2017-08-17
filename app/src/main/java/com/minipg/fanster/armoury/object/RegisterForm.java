@@ -9,6 +9,10 @@ public class RegisterForm {
     String username;
     String password;
 
+    public RegisterForm(){
+
+    }
+
     public RegisterForm(String name, String username, String password){
         this.name = name;
         this.username = username;

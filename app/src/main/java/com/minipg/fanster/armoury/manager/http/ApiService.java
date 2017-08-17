@@ -3,6 +3,7 @@ package com.minipg.fanster.armoury.manager.http;
 
 import com.minipg.fanster.armoury.dao.CategoryItemDao;
 import com.minipg.fanster.armoury.dao.LoginResponseItemDao;
+import com.minipg.fanster.armoury.dao.RegisterResponseItemDao;
 import com.minipg.fanster.armoury.dao.TopicItemDao;
 import com.minipg.fanster.armoury.dao.UserDao;
 import com.minipg.fanster.armoury.object.RegisterForm;
@@ -28,8 +29,11 @@ public interface ApiService {
     @POST("login")
     Call<LoginResponseItemDao> login(@Body User userObject);
 
-    @POST("user/register")  //TODO change ResponseItem
-    Call<LoginResponseItemDao> register(@Body RegisterForm userObject);
+    @POST("user/register")
+    Call<RegisterResponseItemDao> register(@Body RegisterForm userObject);
+
+    @GET("user/get-by-id/{id}")
+    Call<UserDao> loadUserById(@Path("id") String id);
 
     @GET("topic/get-by-id/{id}")
     Call<TopicItemDao> loadTopicById(@Path("id") String id);
