@@ -104,11 +104,11 @@ public class TabCategoryFragment extends Fragment {
         call.enqueue(new Callback<List<CategoryItemDao>>() {
             @Override
             public void onResponse(Call<List<CategoryItemDao>> call, Response<List<CategoryItemDao>> response) {
-                swipeRefreshLayout.setRefreshing(false);
                 if (response.isSuccessful()) {
                     List<CategoryItemDao> dao = response.body();
                     categoryListAdapter.setData(dao);
                     categoryListAdapter.notifyDataSetChanged();
+
                     //showToast("Load Completed");
                 } else {
                     try {
@@ -117,6 +117,7 @@ public class TabCategoryFragment extends Fragment {
                         e.printStackTrace();
                     }
                 }
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override

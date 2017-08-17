@@ -1,71 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/nestedScrollProfile"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshProfile"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        style="@style/ProgressBarsStyle">
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nestedScrollProfile"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="centerCrop"
-                android:src="@drawable/desk" />
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tvName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:freezesText="true"
-                    android:gravity="center"
-                    android:text="Name :   Prayood Chanohcha"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/tvRank"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:freezesText="true"
-                    android:gravity="center"
-                    android:text="Score : 12500"
-                    android:textSize="14sp" />
-
-
-                <com.minipg.fanster.armoury.view.NonScrollListViews
-                    android:id="@+id/listXp"
+                <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/desk" />
 
-                <com.github.mikephil.charting.charts.PieChart
-                    android:id="@+id/pieChart"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:padding="30dp" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
+                    <TextView
+                        android:id="@+id/tvName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:freezesText="true"
+                        android:gravity="center"
+                        android:text="Name :   Prayood Chanohcha"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tvScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:freezesText="true"
+                        android:gravity="center"
+                        android:text="Score : 12500"
+                        android:textSize="14sp" />
+
+
+                    <com.minipg.fanster.armoury.view.NonScrollListViews
+                        android:id="@+id/listXp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/pieChart"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:padding="30dp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
 
-
-    </android.support.v4.widget.NestedScrollView>
-
-
-
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>
