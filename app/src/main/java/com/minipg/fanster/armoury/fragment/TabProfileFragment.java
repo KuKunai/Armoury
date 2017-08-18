@@ -102,11 +102,12 @@ public class TabProfileFragment extends Fragment {
         mView = rootView;
         chart = (PieChart) rootView.findViewById(R.id.pieChart);
         listView = (ListView) rootView.findViewById(R.id.listXp);
-        xpListAdapter = new XpListAdapter();
-        listView.setAdapter(xpListAdapter);
         tvScore = (TextView) rootView.findViewById(R.id.tvScore);
         tvName = (TextView) rootView.findViewById(R.id.tvName);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshProfile);
+
+        xpListAdapter = new XpListAdapter();
+        listView.setAdapter(xpListAdapter);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

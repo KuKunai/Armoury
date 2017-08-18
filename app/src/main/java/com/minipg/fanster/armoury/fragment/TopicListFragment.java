@@ -1,7 +1,9 @@
 package com.minipg.fanster.armoury.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.minipg.fanster.armoury.R;
+import com.minipg.fanster.armoury.activity.AddTopicActivity;
+import com.minipg.fanster.armoury.activity.TopicListActivity;
 import com.minipg.fanster.armoury.adapter.TopicListAdapter;
 import com.minipg.fanster.armoury.dao.CategoryItemDao;
 import com.minipg.fanster.armoury.dao.TopicItemDao;
@@ -27,9 +31,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-/**
- * Created by nuuneoi on 11/16/2014.
- */
 @SuppressWarnings("unused")
 public class TopicListFragment extends Fragment {
     private static final String KEY_CATEGORY = "category";
@@ -39,6 +40,8 @@ public class TopicListFragment extends Fragment {
     private TopicListAdapter topicListAdapter;
     private String categoryName;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private FloatingActionButton fabAddTopic;
+    private String strId = "59966e96e4b017a16ae94083";
 
     public TopicListFragment() {
         super();
@@ -91,9 +94,21 @@ public class TopicListFragment extends Fragment {
         mView = rootView;
         topicListAdapter = new TopicListAdapter(this,topicList,TopicListFragment.this);
         recycleView = (RecyclerView) rootView.findViewById(R.id.recycleViewTopicList);
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshTopicList);
+        fabAddTopic = (FloatingActionButton) rootView.findViewById(R.id.fabAddTopic);
+
+        fabAddTopic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TopicListFragment.this.getActivity(), AddTopicActivity.class);
+                intent.putExtra("type_cate" ,categoryName);
+                TopicListFragment.this.startActivity(intent);
+            }
+        });
+
         recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recycleView.setAdapter(topicListAdapter);
-        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshTopicList);
+
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
