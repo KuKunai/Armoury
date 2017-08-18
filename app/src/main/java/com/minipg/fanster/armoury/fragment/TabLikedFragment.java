@@ -30,13 +30,18 @@ public class TabLikedFragment extends Fragment {
         super();
     }
 
+    public static TabLikedFragment newInstance(Bundle userIdBundle) {
+        TabLikedFragment fragment = new TabLikedFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
     public static TabLikedFragment newInstance() {
         TabLikedFragment fragment = new TabLikedFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

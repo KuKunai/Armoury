@@ -152,31 +152,33 @@ public class TopicFragment extends Fragment {
     }
 
     private void loadData() {
-        Call<TopicItemDao> call = HttpManager.getInstance().getService().loadTopicById(topic.getString(KEY_ID));
-        call.enqueue(new Callback<TopicItemDao>() {
-            @Override
-            public void onResponse(Call<TopicItemDao> call, Response<TopicItemDao> response) {
-                swipeRefreshLayout.setRefreshing(false);
-                if (response.isSuccessful()) {
-                    dao = response.body();
-                    if (dao != null) {
-                        initView(dao.getTitle(), dao.getPoster(),dao.getCreateDate(),dao.getDescription(),dao.getLink(),dao.getScore());
-                    }
-                } else {
-                    try {
-                        showToast(response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
+        if (topic != null) {
+            Call<TopicItemDao> call = HttpManager.getInstance().getService().loadTopicById(topic.getString(KEY_ID));
+            call.enqueue(new Callback<TopicItemDao>() {
+                @Override
+                public void onResponse(Call<TopicItemDao> call, Response<TopicItemDao> response) {
+                    swipeRefreshLayout.setRefreshing(false);
+                    if (response.isSuccessful()) {
+                        dao = response.body();
+                        if (dao != null) {
+                            initView(dao.getTitle(), dao.getPoster(), dao.getCreateDate(), dao.getDescription(), dao.getLink(), dao.getScore());
+                        }
+                    } else {
+                        try {
+                            showToast(response.errorBody().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<TopicItemDao> call, Throwable t) {
-                swipeRefreshLayout.setRefreshing(false);
-                showToast("Load Fail");
-            }
-        });
+                @Override
+                public void onFailure(Call<TopicItemDao> call, Throwable t) {
+                    swipeRefreshLayout.setRefreshing(false);
+                    showToast("Load Fail");
+                }
+            });
+        }
     }
 
 

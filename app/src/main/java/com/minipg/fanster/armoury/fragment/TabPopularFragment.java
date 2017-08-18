@@ -32,6 +32,13 @@ public class TabPopularFragment extends Fragment {
         super();
     }
 
+    public static TabPopularFragment newInstance(Bundle userIdBundle) {
+        TabPopularFragment fragment = new TabPopularFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     public static TabPopularFragment newInstance() {
         TabPopularFragment fragment = new TabPopularFragment();
         Bundle args = new Bundle();

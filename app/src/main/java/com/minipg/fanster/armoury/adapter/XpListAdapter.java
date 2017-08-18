@@ -1,5 +1,6 @@
 package com.minipg.fanster.armoury.adapter;
 
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -28,12 +29,8 @@ public class XpListAdapter extends BaseAdapter {
     List<UserScoreDao> userScoreDao;
     List<CategoryItemDao> categoryItemDao;
 
-    public XpListAdapter(List<UserScoreDao> userScoreDao) {
-        this.userScoreDao = userScoreDao;
-    }
-
     public XpListAdapter() {
-
+        loadData();
     }
 
     private void loadData() {
@@ -72,13 +69,24 @@ public class XpListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-//        XpListItem item;if (view != null)
-//            item = (XpListItem ) view;
-//        else
-//            item = new XpListItem (viewGroup.getContext());
-//        item.setTopicXp("IOS",30,100);
-//        return item;
-        return new XpListItem(viewGroup.getContext());
+        XpListItem item;
+        if (view != null)
+            item = (XpListItem ) view;
+        else
+            item = new XpListItem (viewGroup.getContext());
+        boolean isNotInCate = true;
+        if(userScoreDao!=null){
+            if(categoryItemDao!=null){
+                for(CategoryItemDao all : categoryItemDao){
+                    if(all.getName().equals(userScoreDao.get(i).getName())){
+                        item.setTopicXp(userScoreDao.get(i).getName(),userScoreDao.get(i).getAmount(),all.getAmount());
+                    }
+                }
+
+            }
+        }
+        return item;
+        //return new XpListItem(viewGroup.getContext());
     }
 
     @Override

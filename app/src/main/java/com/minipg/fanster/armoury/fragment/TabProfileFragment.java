@@ -2,8 +2,10 @@ package com.minipg.fanster.armoury.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +40,7 @@ import retrofit2.Response;
  */
 public class TabProfileFragment extends Fragment {
 
+    private static Bundle userId;
     private double[] values;
     private String[] codename;
     private String[] colors;
@@ -50,6 +53,7 @@ public class TabProfileFragment extends Fragment {
     private TextView tvScore;
     private TextView tvName;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private String strId = "59966e96e4b017a16ae94083";
 
     public TabProfileFragment() {
         super();
@@ -61,6 +65,29 @@ public class TabProfileFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
+    public static TabProfileFragment newInstance(Bundle bundle) {
+        TabProfileFragment fragment = new TabProfileFragment();
+        Bundle args = new Bundle();
+        if (bundle != null)
+            args.putBundle("userID", bundle);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        userId = new Bundle();
+        if (bundle != null){
+            userId = bundle.getBundle("userID");
+            //strId = userId.getString("StringID");
+        }
+        if (savedInstanceState != null)
+            onRestoreInstanceState(savedInstanceState);
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -88,15 +115,13 @@ public class TabProfileFragment extends Fragment {
                 showToast("Refreshed");
             }
         });
-
         if (savedInstanceState == null)
             loadData();
-
-
     }
 
     private void loadData() {
-        Call<UserDao> call = HttpManager.getInstance().getService().loadUserById("599516a7e4b0fac3dd931f25");//TODO Mock user ID
+
+        Call<UserDao> call = HttpManager.getInstance().getService().loadUserById(strId);
         call.enqueue(new Callback<UserDao>() {
             @Override
             public void onResponse(Call<UserDao> call, Response<UserDao> response) {
@@ -104,12 +129,13 @@ public class TabProfileFragment extends Fragment {
                     userDao = response.body();
                     tvName.setText("Name : " + userDao.getName());
                     tvScore.setText("Score : " + userDao.getTotalLiked());
-                    if (userDao.getShared().size() != 0) {
-                        xpListAdapter.setUserScoreDao(userDao.getShared());
-                        xpListAdapter.notifyDataSetChanged();
-                        listView.setAdapter(xpListAdapter);
-                        initChart();
-                    }
+                    if (userDao.getShared() != null)
+                        if (userDao.getShared().size() != 0) {
+                            xpListAdapter.setUserScoreDao(userDao.getShared());
+                            xpListAdapter.notifyDataSetChanged();
+                            listView.setAdapter(xpListAdapter);
+                            initChart();
+                        }
                 } else {
                     try {
                         showToast(response.errorBody().string());
@@ -130,8 +156,8 @@ public class TabProfileFragment extends Fragment {
     private void initChart() {
         final ArrayList<UserScoreDao> listScore = (ArrayList<UserScoreDao>) userDao.getShared();
         ArrayList<PieEntry> entries = new ArrayList<>();
-        for (UserScoreDao student : listScore) {
-            entries.add(new PieEntry(student.getAmount(), student.getName()));
+        for (UserScoreDao score : listScore) {
+            entries.add(new PieEntry(score.getAmount(), score.getName()));
         }
 //        ArrayList<PieEntry> entries = new ArrayList<>();
 //        entries.add(new PieEntry(1,"IOS"));
@@ -142,7 +168,7 @@ public class TabProfileFragment extends Fragment {
         PieDataSet dataset = new PieDataSet(entries, "Topic");
         dataset.setSelectionShift(10);
         dataset.setValueTextSize(14);
-        dataset.setColors(ColorTemplate.MATERIAL_COLORS);
+        dataset.setColors(ColorTemplate.COLORFUL_COLORS);
         dataset.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
         dataset.setValueLinePart1Length(0.5f);
         dataset.setValueLinePart2Length(0.5f);
@@ -192,5 +218,9 @@ public class TabProfileFragment extends Fragment {
         if (savedInstanceState != null) {
             // Restore Instance State here
         }
+    }
+
+    private void onRestoreInstanceState(Bundle savedInstanceState) {
+        // Restore Instance State here
     }
 }

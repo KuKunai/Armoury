@@ -23,7 +23,7 @@ public class TopicItemDao {
     @SerializedName("link")
     @Expose
     private String link;
-    @SerializedName("score")
+    @SerializedName("like")
     @Expose
     private int score;
     @SerializedName("poster")

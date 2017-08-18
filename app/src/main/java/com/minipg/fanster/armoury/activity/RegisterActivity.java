@@ -2,6 +2,7 @@ package com.minipg.fanster.armoury.activity;
 
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -9,10 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.minipg.fanster.armoury.R;
@@ -35,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etPW;
     private EditText etRPW;
     private EditText etUser;
+    private RelativeLayout touchInterceptor;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,17 +48,15 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void iniInstane() {
+        touchInterceptor = (RelativeLayout) findViewById(R.id.relativeLayoutRegister);
         fabCancle = (FloatingActionButton) findViewById(R.id.fabCancel);
         btnRegister = (Button) findViewById(R.id.bt_register);
         etName = (EditText) findViewById(R.id.et_name);
-        setHideKeyboard(etName);
         etUser = (EditText) findViewById(R.id.et_username);
-        setHideKeyboard(etUser);
         etPW = (EditText) findViewById(R.id.et_password);
-        setHideKeyboard(etPW);
         etRPW = (EditText) findViewById(R.id.et_repeatpassword);
-        setHideKeyboard(etRPW);
 
+        initHideKeyboard(touchInterceptor);
         etUser.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -123,18 +125,21 @@ public class RegisterActivity extends AppCompatActivity {
                     canRegister = false;
                 } else if (etName.getText().toString().length() < 4) {
                     etName.setError("Name must at least 4 letter");
+                    canRegister = false;
                 }
                 if (etUser.getText().toString().length() == 0) {
                     etUser.setError("Username is required.");
                     canRegister = false;
                 } else if (etUser.getText().toString().length() < 4) {
                     etUser.setError("Username must at least 4 letter");
+                    canRegister = false;
                 }
                 if (etPW.getText().toString().length() == 0) {
                     etPW.setError("Password is required.");
                     canRegister = false;
                 } else if (etPW.getText().toString().length() < 4) {
                     etPW.setError("Password must at least 4 letter");
+                    canRegister = false;
                 } else if (etRPW.getText().toString().length() == 0) {
                     etRPW.setError("Repeat password is required.");
                     canRegister = false;
@@ -202,5 +207,32 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void showToast(String username) {
         Toast.makeText(RegisterActivity.this, username.toString(), Toast.LENGTH_SHORT).show();
+    }
+
+    private void initHideKeyboard(RelativeLayout touchInterceptor) {
+        touchInterceptor.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    setHideKeyboard(etUser,v,event);
+                    setHideKeyboard(etPW,v,event);
+                    setHideKeyboard(etRPW,v,event);
+                    setHideKeyboard(etName,v,event);
+                }
+                return false;
+            }
+        });
+    }
+
+    private void setHideKeyboard(final EditText editText,View v, MotionEvent event) {
+        if (editText.isFocused()) {
+            Rect outRect = new Rect();
+            editText.getGlobalVisibleRect(outRect);
+            if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                editText.clearFocus();
+                InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
+        }
     }
 }
