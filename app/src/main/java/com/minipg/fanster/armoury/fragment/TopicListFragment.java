@@ -101,7 +101,7 @@ public class TopicListFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(TopicListFragment.this.getActivity(), AddTopicActivity.class);
-                intent.putExtra("type_cate" ,categoryName);
+                intent.putExtra("cate_type" ,categoryName);
                 TopicListFragment.this.startActivity(intent);
             }
         });

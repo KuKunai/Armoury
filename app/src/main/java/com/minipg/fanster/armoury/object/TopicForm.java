@@ -52,4 +52,8 @@ public class TopicForm {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    public String getForm(){
+        return "{ "+title+" "+link+" "+description+" "+category+" }";
+    }
 }

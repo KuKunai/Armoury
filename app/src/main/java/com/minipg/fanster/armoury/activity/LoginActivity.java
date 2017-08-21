@@ -3,6 +3,7 @@ package com.minipg.fanster.armoury.activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
@@ -139,7 +140,11 @@ public class LoginActivity extends AppCompatActivity {
                     LoginResponseItemDao dao = response.body();
                     if (dao.isAccess()) {
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        intent.putExtra("userId",dao.getUser().getId());
+                        SharedPreferences sharedPref = getSharedPreferences("sharedUserID",Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putString("userID", dao.getUser().getId());
+                        editor.commit();
+
                         startActivity(intent);
                         finish();
                     } else {

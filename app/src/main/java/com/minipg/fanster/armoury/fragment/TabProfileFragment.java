@@ -1,5 +1,7 @@
 package com.minipg.fanster.armoury.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -53,7 +55,7 @@ public class TabProfileFragment extends Fragment {
     private TextView tvScore;
     private TextView tvName;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private String strId = "59966e96e4b017a16ae94083";
+    private String strId = "5997283de4b017a16ae94085";
 
     public TabProfileFragment() {
         super();
@@ -62,15 +64,6 @@ public class TabProfileFragment extends Fragment {
     public static TabProfileFragment newInstance() {
         TabProfileFragment fragment = new TabProfileFragment();
         Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    public static TabProfileFragment newInstance(Bundle bundle) {
-        TabProfileFragment fragment = new TabProfileFragment();
-        Bundle args = new Bundle();
-        if (bundle != null)
-            args.putBundle("userID", bundle);
         fragment.setArguments(args);
         return fragment;
     }
@@ -105,6 +98,9 @@ public class TabProfileFragment extends Fragment {
         tvScore = (TextView) rootView.findViewById(R.id.tvScore);
         tvName = (TextView) rootView.findViewById(R.id.tvName);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshProfile);
+
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("sharedUserID",Context.MODE_PRIVATE);
+        strId = sharedPref.getString("userID","5997283de4b017a16ae94085");
 
         xpListAdapter = new XpListAdapter();
         listView.setAdapter(xpListAdapter);
@@ -166,7 +162,7 @@ public class TabProfileFragment extends Fragment {
 //        entries.add(new PieEntry(0,"Web"));
 //        entries.add(new PieEntry(0,"Service"));
 
-        PieDataSet dataset = new PieDataSet(entries, "Topic");
+        PieDataSet dataset = new PieDataSet(entries, "");
         dataset.setSelectionShift(10);
         dataset.setValueTextSize(14);
         dataset.setColors(ColorTemplate.COLORFUL_COLORS);
@@ -204,6 +200,13 @@ public class TabProfileFragment extends Fragment {
     /*
      * Save Instance State Here
      */
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
+    }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);

@@ -49,13 +49,9 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Profile");
         setSupportActionBar(toolbar);
-        Log.d("userid",getIntent().getStringExtra("userId"));
-        String id = getIntent().getStringExtra("userId");
-        Bundle userId = new Bundle();
-        userId.putString("StringID",id);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.viewPager, TabProfileFragment.newInstance(userId)) //MainFragment.newInstance())
+                    .add(R.id.viewPager, TabProfileFragment.newInstance()) //MainFragment.newInstance())
                     .commit();
         }
 

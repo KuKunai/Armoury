@@ -36,12 +36,6 @@ public class TabCategoryFragment extends Fragment {
     }
 
     @SuppressWarnings("unused")
-    public static TabCategoryFragment newInstance(Bundle userIdBundle) {
-        TabCategoryFragment fragment = new TabCategoryFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public static TabCategoryFragment newInstance() {
         TabCategoryFragment fragment = new TabCategoryFragment();

@@ -7,6 +7,7 @@ import com.minipg.fanster.armoury.dao.RegisterResponseItemDao;
 import com.minipg.fanster.armoury.dao.TopicItemDao;
 import com.minipg.fanster.armoury.dao.UserDao;
 import com.minipg.fanster.armoury.object.RegisterForm;
+import com.minipg.fanster.armoury.object.TopicForm;
 import com.minipg.fanster.armoury.object.User;
 
 import java.util.List;
@@ -31,6 +32,9 @@ public interface ApiService {
 
     @POST("user/register")
     Call<RegisterResponseItemDao> register(@Body RegisterForm userObject);
+
+    @POST("user/share/{id}")
+    Call<String> addTopic(@Path("id") String id,@Body TopicForm topicObject);
 
     @GET("user/get-by-id/{id}")
     Call<UserDao> loadUserById(@Path("id") String id);
