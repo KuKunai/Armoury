@@ -45,7 +45,17 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        checkSharedPreferences();
         initInstance();
+    }
+
+    private void checkSharedPreferences() {
+        SharedPreferences sharedPref = getSharedPreferences("sharedUserID",Context.MODE_PRIVATE);
+        if(sharedPref.getString("userID",null)!=null){
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void initInstance() {
@@ -144,7 +154,6 @@ public class LoginActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = sharedPref.edit();
                         editor.putString("userID", dao.getUser().getId());
                         editor.commit();
-
                         startActivity(intent);
                         finish();
                     } else {

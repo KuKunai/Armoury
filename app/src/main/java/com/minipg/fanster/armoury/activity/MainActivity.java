@@ -1,6 +1,8 @@
 package com.minipg.fanster.armoury.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -135,6 +137,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                SharedPreferences sharedPref = getSharedPreferences("sharedUserID", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("userID", null);
+                editor.commit();
                 startActivity(intent);
                 //TODO: Clear user
                 close = true;
