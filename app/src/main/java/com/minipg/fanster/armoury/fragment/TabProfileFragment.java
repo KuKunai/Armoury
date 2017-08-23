@@ -24,6 +24,7 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.minipg.fanster.armoury.R;
 import com.minipg.fanster.armoury.adapter.XpListAdapter;
+import com.minipg.fanster.armoury.dao.CategoryItemDao;
 import com.minipg.fanster.armoury.dao.UserDao;
 import com.minipg.fanster.armoury.dao.UserScoreDao;
 import com.minipg.fanster.armoury.manager.HttpManager;
@@ -31,6 +32,7 @@ import com.minipg.fanster.armoury.manager.bus.Contextor;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -126,8 +128,8 @@ public class TabProfileFragment extends Fragment {
                     tvScore.setText("Score : " + userDao.getTotalLiked());
                     if (userDao.getShared() != null)
                         if (userDao.getShared().size() != 0) {
-
                             xpListAdapter.setUserScoreDao(userDao.getShared());
+                            loadAmountData();
                             xpListAdapter.notifyDataSetChanged();
                             listView.setAdapter(xpListAdapter);
                             initChart();
@@ -178,6 +180,22 @@ public class TabProfileFragment extends Fragment {
         chart.setTransparentCircleRadius(0);
         chart.animateY(500);
         chart.setUsePercentValues(true);
+    }
+
+    private void loadAmountData() {
+        Call<List<CategoryItemDao>> call = HttpManager.getInstance().getService().loadAllCategoryList();
+        call.enqueue(new Callback<List<CategoryItemDao>>() {
+            @Override
+            public void onResponse(Call<List<CategoryItemDao>> call, Response<List<CategoryItemDao>> response) {
+                if (response.isSuccessful()) {
+                    xpListAdapter.setAmountDao(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<CategoryItemDao>> call, Throwable t) {
+            }
+        });
     }
 
     private void showToast(String text) {

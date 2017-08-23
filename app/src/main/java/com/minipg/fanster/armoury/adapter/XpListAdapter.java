@@ -78,7 +78,7 @@ public class XpListAdapter extends BaseAdapter {
         if (userScoreDao != null) {
             if (categoryItemDao != null) {
                 for (CategoryItemDao all : categoryItemDao) {
-                    if (userScoreDao.get(i) != null) {
+                    if (userScoreDao.get(i) != null&&all.getName()!=null) {
                         if (all.getName().equals(userScoreDao.get(i).getName())) {
                             item.setTopicXp(userScoreDao.get(i).getName(), userScoreDao.get(i).getAmount(), all.getAmount());
                         }
@@ -101,5 +101,9 @@ public class XpListAdapter extends BaseAdapter {
 
     public void setUserScoreDao(List<UserScoreDao> userScoreDao) {
         this.userScoreDao = userScoreDao;
+    }
+
+    public void setAmountDao(List<CategoryItemDao> categoryItemDao) {
+        this.categoryItemDao = categoryItemDao;
     }
 }

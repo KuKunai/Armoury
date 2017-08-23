@@ -2,12 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBg" >
+    android:background="@color/colorBg">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycleViewPop"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshPopular"
+        style="@style/ProgressBarsStyle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="4dp"/>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleViewPop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="4dp" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

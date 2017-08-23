@@ -6,6 +6,7 @@ import com.minipg.fanster.armoury.dao.LoginResponseItemDao;
 import com.minipg.fanster.armoury.dao.RegisterResponseItemDao;
 import com.minipg.fanster.armoury.dao.TopicItemDao;
 import com.minipg.fanster.armoury.dao.UserDao;
+import com.minipg.fanster.armoury.dao.UserRankingDao;
 import com.minipg.fanster.armoury.object.RegisterForm;
 import com.minipg.fanster.armoury.object.TopicForm;
 import com.minipg.fanster.armoury.object.User;
@@ -27,6 +28,15 @@ public interface ApiService {
     @GET("topic/getalltopic")
     Call<TopicItemDao> loadAllTopicList();
 
+    @GET("topic/get-popular-topic")
+    Call<List<TopicItemDao>> loadAllPopularList();
+
+    @GET("topic/get-like-topic/{id}")
+    Call<List<TopicItemDao>> loadAllLikeList(@Path("id") String id);
+
+    @GET("user/get-user-by-rank")
+    Call<List<UserRankingDao>> loadAllRanking();
+
     @POST("login")
     Call<LoginResponseItemDao> login(@Body User userObject);
 
@@ -35,6 +45,9 @@ public interface ApiService {
 
     @POST("user/share/{id}")
     Call<String> addTopic(@Path("id") String id,@Body TopicForm topicObject);
+
+    @POST("user/like/{userid}/{topicid}")
+    Call<Boolean> likeTopic(@Path("userid") String userid,@Path("topicid") String topicid);
 
     @GET("user/get-by-id/{id}")
     Call<UserDao> loadUserById(@Path("id") String id);
@@ -47,4 +60,5 @@ public interface ApiService {
 
     @GET("category/getallcategory")
     Call<List<CategoryItemDao>> loadAllCategoryList();
+
 }

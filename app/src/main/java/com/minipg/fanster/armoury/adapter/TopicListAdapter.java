@@ -56,7 +56,6 @@ public class TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.Topi
     @Override
     public void onBindViewHolder(TopicListItemHolder holder, final int position) {
         if (topicList != null) {
-
             holder.tvTitle.setText(topicList.get(position).getTitle());
             holder.tvAuthor.setText("by " + topicList.get(position).getPoster());
             holder.tvStory.setText(topicList.get(position).getDescription());
@@ -67,16 +66,17 @@ public class TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.Topi
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(fragmentTopic.getActivity(), TopicActivity.class);
-                Bundle topicBundle = new Bundle();
-                topicBundle.putString(KEY_HEAD ,topicList.get(position).getTitle());
-                topicBundle.putString(KEY_DESC ,topicList.get(position).getDescription());
-                topicBundle.putLong(KEY_DATE ,topicList.get(position).getCreateDate());
-                topicBundle.putString(KEY_ID ,topicList.get(position).getId());
-                topicBundle.putString(KEY_LINK ,topicList.get(position).getLink());
-                topicBundle.putString(KEY_POSTER ,topicList.get(position).getPoster());
-                topicBundle.putInt(KEY_LIKE,topicList.get(position).getScore());
-                intent.putExtra("topicBundle" ,topicBundle);
-
+                if (topicList != null) {
+                    Bundle topicBundle = new Bundle();
+                    topicBundle.putString(KEY_HEAD, topicList.get(position).getTitle());
+                    topicBundle.putString(KEY_DESC, topicList.get(position).getDescription());
+                    topicBundle.putLong(KEY_DATE, topicList.get(position).getCreateDate());
+                    topicBundle.putString(KEY_ID, topicList.get(position).getId());
+                    topicBundle.putString(KEY_LINK, topicList.get(position).getLink());
+                    topicBundle.putString(KEY_POSTER, topicList.get(position).getPoster());
+                    topicBundle.putInt(KEY_LIKE, topicList.get(position).getScore());
+                    intent.putExtra("topicBundle", topicBundle);
+                }
                 fragmentTopic1.startActivity(intent);
             }
         });
@@ -85,7 +85,6 @@ public class TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.Topi
     @Override
     public int getItemCount() {
         if (topicList == null)
-
             return 0;
         return topicList.size();
     }

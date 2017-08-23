@@ -28,9 +28,6 @@ public class UserDao {
     @SerializedName("totalLiked")
     @Expose
     private int totalLiked;
-    @SerializedName("likeList")
-    @Expose
-    private List<String> likeList;
     @SerializedName("shared")
     @Expose
     private List<UserScoreDao> shared = null;
@@ -81,14 +78,6 @@ public class UserDao {
 
     public void setTotalLiked(int totalLiked) {
         this.totalLiked = totalLiked;
-    }
-
-    public List<String> getLikeList() {
-        return likeList;
-    }
-
-    public void setLikeList(List<String> likeList) {
-        this.likeList = likeList;
     }
 
     public List<UserScoreDao> getShared() {

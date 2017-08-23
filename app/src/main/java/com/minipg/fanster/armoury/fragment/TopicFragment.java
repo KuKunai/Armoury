@@ -2,10 +2,14 @@ package com.minipg.fanster.armoury.fragment;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -59,6 +63,8 @@ public class TopicFragment extends Fragment {
     final String KEY_ID = "topicId";
     private TopicItemDao dao;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private FloatingActionButton fabLike;
+    private String strId;
 
     public TopicFragment() {
         super();
@@ -115,6 +121,9 @@ public class TopicFragment extends Fragment {
         tvDescribtion = (TextView) rootView.findViewById(R.id.tvStory);
         tvLike = (TextView) rootView.findViewById(R.id.tvLiked);
         tvLink = (TextView) rootView.findViewById(R.id.tvLink);
+        fabLike = (FloatingActionButton) rootView.findViewById(R.id.fabLike);
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("sharedUserID", getActivity().MODE_PRIVATE);
+        strId = sharedPref.getString("userID", "5997283de4b017a16ae94085");
         if (topic != null) {
             initView(topic.getString(KEY_HEAD),
                     topic.getString(KEY_POSTER),
@@ -132,8 +141,47 @@ public class TopicFragment extends Fragment {
                 showToast("Refreshed");
             }
         });
+        fabLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                like();
+            }
+        });
         if (savedInstanceState == null)
             loadData();
+    }
+
+    private void like() {
+        if (dao != null) {
+            if (dao.getId() != null) {
+                swipeRefreshLayout.setRefreshing(true);
+                Call<Boolean> call = HttpManager.getInstance().getService().likeTopic(strId, dao.getId());
+                call.enqueue(new Callback<Boolean>() {
+                    @Override
+                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                        swipeRefreshLayout.setRefreshing(false);
+                        if(response.isSuccessful()){
+                            if(response.body()){
+                                fabLike.setBackgroundTintList(ColorStateList.valueOf(Color
+                                        .parseColor("#ffaaaa")));
+                                showToast("Liked");
+                            }else {
+                                fabLike.setBackgroundTintList(ColorStateList.valueOf(Color
+                                        .parseColor("#424242")));
+                                showToast("Disliked");
+                            }
+                            loadData();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Boolean> call, Throwable t) {
+                        swipeRefreshLayout.setRefreshing(false);
+                        showToast("Try again");
+                    }
+                });
+            }
+        }
     }
 
     private void initView(String title, String poster, long date, String desc, String link, int score) {
