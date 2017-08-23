@@ -8,4 +8,8 @@
     <color name="colorBg">#DCDCDC</color>
     <color name="colorPink">#ffaaaa</color>
     <color name="colorDarkGray">#424242</color>
+    <color name="gold">#FDD835</color>
+    <color name="copper">#c87533</color>
+    <color name="silver">#E0E0E0</color>
+    <color name="normal">#4DB6AC</color>
 </resources>

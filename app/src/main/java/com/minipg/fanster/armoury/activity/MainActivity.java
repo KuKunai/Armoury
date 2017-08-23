@@ -153,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(1).setIcon(R.mipmap.ic_library_white).setText(null);
         tabLayout.getTabAt(2).setIcon(R.mipmap.ic_rating).setText(null);
         tabLayout.getTabAt(3).setIcon(R.mipmap.ic_faverite).setText(null);
+        tabLayout.getTabAt(4).setIcon(R.mipmap.ic_trophy).setText(null);
     }
 
     @Override

@@ -8,6 +8,7 @@ import com.minipg.fanster.armoury.fragment.TabCategoryFragment;
 import com.minipg.fanster.armoury.fragment.TabLikedFragment;
 import com.minipg.fanster.armoury.fragment.TabPopularFragment;
 import com.minipg.fanster.armoury.fragment.TabProfileFragment;
+import com.minipg.fanster.armoury.fragment.TabRankingFragment;
 
 /**
  * Created by Knot on 8/8/2017.
@@ -26,13 +27,14 @@ public class PageAdapter extends FragmentPagerAdapter {
             case 1: return new TabCategoryFragment();
             case 2: return new TabPopularFragment();
             case 3: return new TabLikedFragment();
+            case 4: return new TabRankingFragment();
             default: return null;
         }
     }
 
     @Override
     public int getCount() {
-        return 4;
+        return 5;
     }
 
     @Override
@@ -42,6 +44,7 @@ public class PageAdapter extends FragmentPagerAdapter {
             case 1: return "Category";
             case 2: return "Popular";
             case 3: return "Liked";
+            case 4: return "Ranking";
             default: return null;
         }
     }
