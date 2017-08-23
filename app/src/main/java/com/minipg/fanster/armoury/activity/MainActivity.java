@@ -139,10 +139,9 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 SharedPreferences sharedPref = getSharedPreferences("sharedUserID", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("userID", null);
+                editor.clear();
                 editor.commit();
                 startActivity(intent);
-                //TODO: Clear user
                 close = true;
                 finish();
             }

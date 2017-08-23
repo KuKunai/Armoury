@@ -147,7 +147,6 @@ public class AddTopicActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                showToast("Fail");
             }
         });
     }
