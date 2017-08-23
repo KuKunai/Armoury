@@ -114,7 +114,7 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingButtonAdd"
+        android:id="@+id/fabLike"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -123,6 +123,22 @@
         android:alpha="0.8"
         android:clickable="true"
         android:src="@mipmap/ic_faverite"
+        app:backgroundTint="@color/colorDarkGray"
+        app:fabSize="normal"
+        app:layout_anchor="@id/swipeRefreshTopic" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabDislike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:alpha="0.8"
+        android:clickable="true"
+        android:src="@mipmap/ic_faverite"
+        app:backgroundTint="@color/colorPink"
+        android:visibility="gone"
         app:fabSize="normal"
         app:layout_anchor="@id/swipeRefreshTopic" />
 

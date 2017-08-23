@@ -102,8 +102,6 @@ public class TabProfileFragment extends Fragment {
         SharedPreferences sharedPref = getActivity().getSharedPreferences("sharedUserID",Context.MODE_PRIVATE);
         strId = sharedPref.getString("userID","5997283de4b017a16ae94085");
 
-        xpListAdapter = new XpListAdapter();
-        listView.setAdapter(xpListAdapter);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -112,12 +110,12 @@ public class TabProfileFragment extends Fragment {
                 showToast("Refreshed");
             }
         });
-        if (savedInstanceState == null)
+        //if (savedInstanceState == null)
             loadData();
     }
 
     private void loadData() {
-
+        xpListAdapter = new XpListAdapter();
         Call<UserDao> call = HttpManager.getInstance().getService().loadUserById(strId);
         call.enqueue(new Callback<UserDao>() {
             @Override
@@ -128,6 +126,7 @@ public class TabProfileFragment extends Fragment {
                     tvScore.setText("Score : " + userDao.getTotalLiked());
                     if (userDao.getShared() != null)
                         if (userDao.getShared().size() != 0) {
+
                             xpListAdapter.setUserScoreDao(userDao.getShared());
                             xpListAdapter.notifyDataSetChanged();
                             listView.setAdapter(xpListAdapter);

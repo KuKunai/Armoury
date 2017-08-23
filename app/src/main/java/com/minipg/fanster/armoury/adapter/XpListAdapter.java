@@ -71,18 +71,19 @@ public class XpListAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         XpListItem item;
         if (view != null)
-            item = (XpListItem ) view;
+            item = (XpListItem) view;
         else
-            item = new XpListItem (viewGroup.getContext());
+            item = new XpListItem(viewGroup.getContext());
         boolean isNotInCate = true;
-        if(userScoreDao!=null){
-            if(categoryItemDao!=null){
-                for(CategoryItemDao all : categoryItemDao){
-                    if(all.getName().equals(userScoreDao.get(i).getName())){
-                        item.setTopicXp(userScoreDao.get(i).getName(),userScoreDao.get(i).getAmount(),all.getAmount());
+        if (userScoreDao != null) {
+            if (categoryItemDao != null) {
+                for (CategoryItemDao all : categoryItemDao) {
+                    if (userScoreDao.get(i) != null) {
+                        if (all.getName().equals(userScoreDao.get(i).getName())) {
+                            item.setTopicXp(userScoreDao.get(i).getName(), userScoreDao.get(i).getAmount(), all.getAmount());
+                        }
                     }
                 }
-
             }
         }
         return item;
