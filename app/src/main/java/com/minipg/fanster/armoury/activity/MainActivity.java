@@ -149,11 +149,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createTabIcons(TabLayout tabLayout) {
-        tabLayout.getTabAt(0).setIcon(R.mipmap.ic_profile).setText(null);
-        tabLayout.getTabAt(1).setIcon(R.mipmap.ic_library_white).setText(null);
-        tabLayout.getTabAt(2).setIcon(R.mipmap.ic_rating).setText(null);
-        tabLayout.getTabAt(3).setIcon(R.mipmap.ic_faverite).setText(null);
-        tabLayout.getTabAt(4).setIcon(R.mipmap.ic_trophy).setText(null);
+        tabLayout.getTabAt(0).setIcon(R.drawable.selector_icon_profile).setText(null);
+        tabLayout.getTabAt(1).setIcon(R.drawable.selector_icon_category).setText(null);
+        tabLayout.getTabAt(2).setIcon(R.drawable.selector_icon_popular).setText(null);
+        tabLayout.getTabAt(3).setIcon(R.drawable.selector_icon_faverite).setText(null);
+        tabLayout.getTabAt(4).setIcon(R.drawable.selector_icon_trophy).setText(null);
     }
 
     @Override
