@@ -1,5 +1,6 @@
 package com.minipg.fanster.armoury.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
@@ -92,11 +93,33 @@ public class AddTopicActivity extends AppCompatActivity {
                         etLink.getText().toString(),
                         etDesc.getText().toString(),
                         category);
-                showToast(topicForm.getForm());
-                postData(topicForm);
-                finish();
+                boolean ok = true;
+
+                if(etTitle.getText().length()==0){
+                    etTitle.setError("Please add Title");
+                    ok = false;
+                }
+                if(etLink.getText().length()==0){
+                    etLink.setError("Please add Url link");
+                    ok = false;
+                }
+                if(ok) {
+                    postData(topicForm);
+                    finish();
+                }
             }
         });
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        hideKeyboard();
+        return super.onTouchEvent(event);
+    }
+
+    public void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }
 
     private void initHideKeyboard(RelativeLayout touchInterceptor) {
