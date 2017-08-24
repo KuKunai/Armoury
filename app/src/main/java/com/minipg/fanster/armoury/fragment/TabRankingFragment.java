@@ -109,6 +109,12 @@ public class TabRankingFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
+    }
+
     private void showToast(String text) {
         Toast.makeText(Contextor.getInstance().getContext(),
                 text,

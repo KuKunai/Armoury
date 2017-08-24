@@ -189,6 +189,7 @@ public class TabProfileFragment extends Fragment {
             public void onResponse(Call<List<CategoryItemDao>> call, Response<List<CategoryItemDao>> response) {
                 if (response.isSuccessful()) {
                     xpListAdapter.setAmountDao(response.body());
+                    xpListAdapter.notifyDataSetChanged();
                 }
             }
 

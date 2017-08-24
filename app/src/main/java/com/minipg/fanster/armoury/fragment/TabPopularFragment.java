@@ -111,6 +111,12 @@ public class TabPopularFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
     }

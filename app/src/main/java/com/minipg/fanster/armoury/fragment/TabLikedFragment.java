@@ -77,7 +77,6 @@ public class TabLikedFragment extends Fragment {
                 showToast("Refreshed");
             }
         });
-
         loadData();
     }
 
@@ -117,6 +116,12 @@ public class TabLikedFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
     }
 
     @Override
