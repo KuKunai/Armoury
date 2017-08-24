@@ -16,6 +16,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.ShareActionProvider;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,12 +28,16 @@ import android.widget.Toast;
 
 import com.minipg.fanster.armoury.R;
 import com.minipg.fanster.armoury.dao.TopicItemDao;
+import com.minipg.fanster.armoury.dao.UserDao;
 import com.minipg.fanster.armoury.manager.HttpManager;
 import com.minipg.fanster.armoury.manager.bus.Contextor;
+import com.minipg.fanster.armoury.object.User;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,6 +66,7 @@ public class TopicFragment extends Fragment {
     final String KEY_POSTER = "author";
     final String KEY_DATE = "date";
     final String KEY_ID = "topicId";
+
     private TopicItemDao dao;
     private SwipeRefreshLayout swipeRefreshLayout;
     private FloatingActionButton fabLike;
@@ -123,7 +129,7 @@ public class TopicFragment extends Fragment {
         tvLink = (TextView) rootView.findViewById(R.id.tvLink);
         fabLike = (FloatingActionButton) rootView.findViewById(R.id.fabLike);
         SharedPreferences sharedPref = getActivity().getSharedPreferences("sharedUserID", getActivity().MODE_PRIVATE);
-        strId = sharedPref.getString("userID", "5997283de4b017a16ae94085");
+        strId = sharedPref.getString("userID", "");
         if (topic != null) {
             initView(topic.getString(KEY_HEAD),
                     topic.getString(KEY_POSTER),
@@ -160,12 +166,12 @@ public class TopicFragment extends Fragment {
                     @Override
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                         swipeRefreshLayout.setRefreshing(false);
-                        if(response.isSuccessful()){
-                            if(response.body()){
+                        if (response.isSuccessful()) {
+                            if (response.body()) {
                                 fabLike.setBackgroundTintList(ColorStateList.valueOf(Color
                                         .parseColor("#ffaaaa")));
                                 showToast("Liked");
-                            }else {
+                            } else {
                                 fabLike.setBackgroundTintList(ColorStateList.valueOf(Color
                                         .parseColor("#424242")));
                                 showToast("Disliked");
@@ -210,6 +216,7 @@ public class TopicFragment extends Fragment {
                         dao = response.body();
                         if (dao != null) {
                             initView(dao.getTitle(), dao.getPoster(), dao.getCreateDate(), dao.getDescription(), dao.getLink(), dao.getScore());
+                            checkLikeState(dao.getUserLike());
                         }
                     } else {
                         try {
@@ -226,6 +233,21 @@ public class TopicFragment extends Fragment {
                     showToast("Load Fail");
                 }
             });
+        }
+    }
+
+    private void checkLikeState(List<String> listUser) {
+        if (listUser != null) {
+            for (String user : listUser) {
+                if (strId.equals(user)) {
+                    fabLike.setBackgroundTintList(ColorStateList.valueOf(Color
+                            .parseColor("#ffaaaa")));
+                    break;
+                } else {
+                    fabLike.setBackgroundTintList(ColorStateList.valueOf(Color
+                            .parseColor("#424242")));
+                }
+            }
         }
     }
 

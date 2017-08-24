@@ -57,21 +57,20 @@ public class RankingTopicListAdapter extends RecyclerView.Adapter<RankingTopicLi
     public void onBindViewHolder(UserListItemHolder holder, final int position) {
         if (userList != null) {
             holder.tvName.setText(userList.get(position).getName());
-//            holder.tvShare.setText(userList.get(position).getDescription());
+            holder.tvShare.setText("Toal topic : " + userList.get(position).getTotalShare());
             holder.tvScore.setText("Score : " + userList.get(position).getScore());
-            holder.tvRank.setText(""+userList.get(position).getRank());
-            if(userList.get(position).getRank()>oldRank){
+            holder.tvRank.setText("" + userList.get(position).getRank());
+            if (userList.get(position).getRank() > oldRank) {
                 oldRank = userList.get(position).getRank();
                 chance++;
             }
-            if(chance==1)
+            if (chance == 1)
                 holder.tvRank.setTextColor(Color.parseColor("#FDD835"));
-            if(chance==2)
+            else if (chance == 2)
                 holder.tvRank.setTextColor(Color.parseColor("#C0C0C0"));
-            if(chance==3)
+            else if (chance == 3)
                 holder.tvRank.setTextColor(Color.parseColor("#c87533"));
         }
-
 //        holder.cardView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -111,6 +110,5 @@ public class RankingTopicListAdapter extends RecyclerView.Adapter<RankingTopicLi
         if (data != null) {
             this.userList = data;
         }
-        Log.d("dataaaa", "onResponse: " + data);
     }
 }

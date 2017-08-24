@@ -3,6 +3,9 @@ package com.minipg.fanster.armoury.dao;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Knot on 8/8/2017.
  */
@@ -35,6 +38,9 @@ public class TopicItemDao {
     @SerializedName("createDate")
     @Expose
     private long createDate;
+    @SerializedName("userlike")
+    @Expose
+    private List<String> userLike;
 
     public String getId() {
         return id;
@@ -107,5 +113,13 @@ public class TopicItemDao {
 
     public long getCreateDate() {
         return createDate;
+    }
+
+    public List<String> getUserLike() {
+        return userLike;
+    }
+
+    public void setUserLike(List<String> userLike) {
+        this.userLike = userLike;
     }
 }
