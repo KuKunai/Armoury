@@ -10,12 +10,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.minipg.fanster.armoury.R;
@@ -106,6 +109,20 @@ public class RegisterActivity extends AppCompatActivity {
                 if (location_name.matches(".*[^A-Za-z^0-9_].*")) {
                     etPW.setError("Only letters, numbers and underscore are allowed!");
                 }
+            }
+        });
+
+        etRPW.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                boolean handled = false;
+                if (i == EditorInfo.IME_ACTION_DONE) {
+                    btnRegister.performClick();
+                    handled = true;
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(etRPW.getWindowToken(), 0);
+                }
+                return handled;
             }
         });
 

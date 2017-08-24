@@ -96,7 +96,8 @@
                         android:paddingBottom="2dp"
                         android:textColor="#2fa881"
                         android:textCursorDrawable="@drawable/bg_input_cursor"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        android:imeOptions="actionDone"/>
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 
