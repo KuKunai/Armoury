@@ -32,6 +32,7 @@ public class RankingTopicListAdapter extends RecyclerView.Adapter<RankingTopicLi
     List<UserRankingDao> userList;
     int oldRank = 0;
     int chance = 0;
+    private int time;
 
     public RankingTopicListAdapter(RankingTopicListAdapter fragment,
                                    List<UserRankingDao> userList) {
@@ -41,6 +42,8 @@ public class RankingTopicListAdapter extends RecyclerView.Adapter<RankingTopicLi
 
     public RankingTopicListAdapter(List<UserRankingDao> userList) {
         this.userList = userList;
+        chance = 0;
+        oldRank = 0;
     }
 
     public RankingTopicListAdapter() {
@@ -64,12 +67,25 @@ public class RankingTopicListAdapter extends RecyclerView.Adapter<RankingTopicLi
                 oldRank = userList.get(position).getRank();
                 chance++;
             }
-            if (chance == 1)
-                holder.tvRank.setTextColor(Color.parseColor("#FDD835"));
-            else if (chance == 2)
-                holder.tvRank.setTextColor(Color.parseColor("#C0C0C0"));
-            else if (chance == 3)
-                holder.tvRank.setTextColor(Color.parseColor("#c87533"));
+                switch (chance) {
+                    case 1:
+                        holder.tvRank.setTextColor(Color.parseColor("#FDD835"));
+                        break;
+                    case 2:
+                        holder.tvRank.setTextColor(Color.parseColor("#C0C0C0"));
+                        break;
+                    case 3:
+                        holder.tvRank.setTextColor(Color.parseColor("#c87533"));
+                        break;
+                    default:
+                        holder.tvRank.setTextColor(Color.parseColor("#4DB6AC"));
+                        break;
+            }
+            if(position==(getItemCount())-1){
+                oldRank = 0;
+                chance = 0;
+            }
+
         }
 //        holder.cardView.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -83,7 +99,7 @@ public class RankingTopicListAdapter extends RecyclerView.Adapter<RankingTopicLi
     @Override
     public int getItemCount() {
         if (userList == null)
-            return 5;
+            return 0;
         return userList.size();
     }
 
@@ -104,6 +120,7 @@ public class RankingTopicListAdapter extends RecyclerView.Adapter<RankingTopicLi
             tvShare = (TextView) itemView.findViewById(R.id.tvShare);
             tvRank = (TextView) itemView.findViewById(R.id.tvRanking);
         }
+
     }
 
     public void setData(List<UserRankingDao> data) {

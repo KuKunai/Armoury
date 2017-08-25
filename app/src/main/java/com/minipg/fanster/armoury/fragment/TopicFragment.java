@@ -153,7 +153,7 @@ public class TopicFragment extends Fragment {
                 like();
             }
         });
-        if (savedInstanceState == null)
+        //if (savedInstanceState == null)
             loadData();
     }
 
@@ -264,6 +264,7 @@ public class TopicFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        loadData();
     }
 
     @Override
@@ -287,6 +288,7 @@ public class TopicFragment extends Fragment {
     private void onRestoreInstanceState(Bundle savedInstanceState) {
         // Restore Instance State here
     }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
