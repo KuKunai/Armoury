@@ -102,8 +102,14 @@ public class TopicFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_topic, container, false);
-        initInstances(rootView, savedInstanceState);
+
         return rootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initInstances(view, savedInstanceState);
     }
 
     private void init(Bundle savedInstanceState) {
@@ -147,6 +153,7 @@ public class TopicFragment extends Fragment {
                 showToast("Refreshed");
             }
         });
+        loadData();
         fabLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -154,7 +161,7 @@ public class TopicFragment extends Fragment {
             }
         });
         //if (savedInstanceState == null)
-            loadData();
+
     }
 
     private void like() {
@@ -177,6 +184,12 @@ public class TopicFragment extends Fragment {
                                 showToast("Disliked");
                             }
                             loadData();
+                        } else{
+                            try {
+                                showToast(response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
 
