@@ -41,6 +41,9 @@ public class TopicItemDao {
     @SerializedName("userlike")
     @Expose
     private List<String> userLike;
+    @SerializedName("view")
+    @Expose
+    private int view;
 
     public String getId() {
         return id;
@@ -49,7 +52,6 @@ public class TopicItemDao {
     public void setId(String id) {
         this.id = id;
     }
-
 
     public String getDescription() {
         return description;
@@ -121,5 +123,13 @@ public class TopicItemDao {
 
     public void setUserLike(List<String> userLike) {
         this.userLike = userLike;
+    }
+
+    public int getView() {
+        return view;
+    }
+
+    public void setView(int view) {
+        this.view = view;
     }
 }
