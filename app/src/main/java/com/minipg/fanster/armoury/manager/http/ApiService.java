@@ -63,4 +63,7 @@ public interface ApiService {
 
     @POST("topic/view/{id}")
     Call<String> addView(@Path("id") String id);
+
+    @GET("topic/get-category-popular/{cate}")
+    Call<List<TopicItemDao>> loadPopularTopicListByType(@Path("cate") String name);
 }

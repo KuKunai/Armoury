@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +15,8 @@ import android.widget.Toast;
 
 import com.minipg.fanster.armoury.R;
 import com.minipg.fanster.armoury.activity.AddTopicActivity;
-import com.minipg.fanster.armoury.activity.TopicListActivity;
 import com.minipg.fanster.armoury.adapter.TopicListAdapter;
-import com.minipg.fanster.armoury.dao.CategoryItemDao;
+import com.minipg.fanster.armoury.adapter.TopicListPopularAdapter;
 import com.minipg.fanster.armoury.dao.TopicItemDao;
 import com.minipg.fanster.armoury.manager.HttpManager;
 import com.minipg.fanster.armoury.manager.bus.Contextor;
@@ -32,29 +30,29 @@ import retrofit2.Response;
 
 
 @SuppressWarnings("unused")
-public class TopicListFragment extends Fragment {
+public class TopicListPopularFragment extends Fragment {
     private static final String KEY_CATEGORY = "category";
     private View mView;
     private RecyclerView recycleView;
     private List<TopicItemDao> topicList;
-    private TopicListAdapter topicListAdapter;
+    private TopicListPopularAdapter topicListAdapter;
     private String categoryName= "Category";
     private SwipeRefreshLayout swipeRefreshLayout;
     private FloatingActionButton fabAddTopic;
     private String strId = "59966e96e4b017a16ae94083";
 
-    public TopicListFragment() {
+    public TopicListPopularFragment() {
         super();
     }
 
-    public TopicListFragment(String category) {
+    public TopicListPopularFragment(String category) {
         super();
         categoryName = category;
     }
 
     @SuppressWarnings("unused")
-    public static TopicListFragment newInstance(String category) {
-        TopicListFragment fragment = new TopicListFragment();
+    public static TopicListPopularFragment newInstance(String category) {
+        TopicListPopularFragment fragment = new TopicListPopularFragment();
         Bundle args = new Bundle();
         args.putString(KEY_CATEGORY, category);
         fragment.setArguments(args);
@@ -65,7 +63,7 @@ public class TopicListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         init(savedInstanceState);
-//        Bundle bundle = getArguments();
+        //Bundle bundle = getArguments();
 //        if(bundle != null)
 //            categoryName = bundle.getString(KEY_CATEGORY);
 //        else
@@ -97,7 +95,7 @@ public class TopicListFragment extends Fragment {
     private void initInstances(View rootView, Bundle savedInstanceState) {
         // Init 'View' instance(s) with rootView.findViewById here
         mView = rootView;
-        topicListAdapter = new TopicListAdapter(this,topicList,TopicListFragment.this);
+        topicListAdapter = new TopicListPopularAdapter(this,topicList);
         recycleView = (RecyclerView) rootView.findViewById(R.id.recycleViewTopicList);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshTopicList);
         fabAddTopic = (FloatingActionButton) rootView.findViewById(R.id.fabAddTopic);
@@ -105,9 +103,9 @@ public class TopicListFragment extends Fragment {
         fabAddTopic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TopicListFragment.this.getActivity(), AddTopicActivity.class);
+                Intent intent = new Intent(TopicListPopularFragment.this.getActivity(), AddTopicActivity.class);
                 intent.putExtra("cate_type" ,categoryName);
-                TopicListFragment.this.startActivity(intent);
+                TopicListPopularFragment.this.startActivity(intent);
             }
         });
 
@@ -128,7 +126,7 @@ public class TopicListFragment extends Fragment {
     }
 
     private void loadData() {
-        Call<List<TopicItemDao>> call = HttpManager.getInstance().getService().loadTopicListByType(categoryName);
+        Call<List<TopicItemDao>> call = HttpManager.getInstance().getService().loadPopularTopicListByType(categoryName);
         call.enqueue(new Callback<List<TopicItemDao>>() {
             @Override
             public void onResponse(Call<List<TopicItemDao>> call, Response<List<TopicItemDao>> response) {
@@ -138,11 +136,7 @@ public class TopicListFragment extends Fragment {
                     topicListAdapter.notifyDataSetChanged();
 
                 } else {
-                    try {
-                        showToast(response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                        showToast(categoryName);
                 }
             }
 

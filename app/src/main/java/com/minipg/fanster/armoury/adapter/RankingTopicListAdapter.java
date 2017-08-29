@@ -61,13 +61,12 @@ public class RankingTopicListAdapter extends RecyclerView.Adapter<RankingTopicLi
         if (userList != null) {
             holder.tvName.setText(userList.get(position).getName());
             holder.tvShare.setText(userList.get(position).getTotalShare() + " topics");
-            holder.tvLiked.setText(userList.get(position).getLike() + " likes  ");
+            holder.tvLiked.setText(userList.get(position).getLike() + " likes   ");
             holder.tvView.setText(userList.get(position).getView() + " views ");
             holder.tvScore.setText("Score : " + userList.get(position).getScore());
             holder.tvRank.setText("" + userList.get(position).getRank());
             int low = 3;
             int lower = 2;
-            int lowest = 1;
             boolean skip = false;
             boolean skip2 = false;
 
@@ -91,6 +90,7 @@ public class RankingTopicListAdapter extends RecyclerView.Adapter<RankingTopicLi
                     }
                 }
             }
+
             if (userList.get(position).getRank() == 1) {
                 holder.tvRank.setTextColor(Color.parseColor("#FDD835"));
             } else if (userList.get(position).getRank() == lower) {

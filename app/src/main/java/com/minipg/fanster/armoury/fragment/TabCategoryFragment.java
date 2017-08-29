@@ -71,18 +71,9 @@ public class TabCategoryFragment extends Fragment {
         // Init Fragment level's variable(s) here
     }
 
-    private void mockDao() {
-        categoryList = new ArrayList<>();
-        categoryList.add(new CategoryItemDao("Android"));
-        categoryList.add(new CategoryItemDao("IOS"));
-        categoryList.add(new CategoryItemDao("Web"));
-        categoryList.add(new CategoryItemDao("Service"));
-    }
-
     @SuppressWarnings("UnusedParameters")
     private void initInstances(View rootView, Bundle savedInstanceState) {
         // Init 'View' instance(s) with rootView.findViewById here
-        mockDao();
         recyclerView = (RecyclerView) rootView.findViewById(R.id.rc_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         categoryListAdapter = new CategoryAdapter(this, categoryList, TabCategoryFragment.this);

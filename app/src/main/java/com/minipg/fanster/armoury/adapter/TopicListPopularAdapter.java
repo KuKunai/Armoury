@@ -1,7 +1,6 @@
 package com.minipg.fanster.armoury.adapter;
 
 import android.content.Intent;
-import android.icu.util.TimeZone;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -27,11 +26,10 @@ import java.util.List;
  */
 
 
-public class TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.TopicListItemHolder> {
+public class TopicListPopularAdapter extends RecyclerView.Adapter<TopicListPopularAdapter.TopicListItemHolder> {
 
-    TopicListFragment fragmentTopic;
+    TopicListPopularFragment fragmentTopic;
     List<TopicItemDao> topicList;
-    TopicListFragment fragmentTopic1;
     final String KEY_HEAD = "head";
     final String KEY_DESC = "desc";
     final String KEY_LINK = "link";
@@ -40,13 +38,11 @@ public class TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.Topi
     final String KEY_DATE = "date";
     final String KEY_ID = "topicId";
 
-    public TopicListAdapter(TopicListFragment fragmentTopic,
-                            List<TopicItemDao> topicList, TopicListFragment fragmentTopic1) {
+    public TopicListPopularAdapter(TopicListPopularFragment fragmentTopic,
+                                   List<TopicItemDao> topicList) {
         this.fragmentTopic = fragmentTopic;
         this.topicList = topicList;
-        this.fragmentTopic1 = fragmentTopic1;
     }
-
 
     @Override
     public TopicListItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -80,7 +76,7 @@ public class TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.Topi
                     topicBundle.putInt(KEY_LIKE, topicList.get(position).getScore());
                     intent.putExtra("topicBundle", topicBundle);
                 }
-                fragmentTopic1.startActivity(intent);
+                fragmentTopic.startActivity(intent);
             }
         });
     }
