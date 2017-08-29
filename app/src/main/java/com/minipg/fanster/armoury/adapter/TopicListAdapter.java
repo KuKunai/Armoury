@@ -60,7 +60,8 @@ public class TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.Topi
             holder.tvAuthor.setText("by " + topicList.get(position).getPoster());
             holder.tvStory.setText(topicList.get(position).getDescription());
             holder.tvDate.setText(convertUnixToDate(topicList.get(position).getCreateDate()));
-            holder.tvLiked.setText(topicList.get(position).getScore() + " Liked");
+            holder.tvCate.setText(topicList.get(position).getScore() + " liked");
+            holder.tvLiked.setText(topicList.get(position).getView() + " views");
         }
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +108,7 @@ public class TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.Topi
         private final TextView tvDate;
         private final TextView tvLiked;
         private final CardView cardView;
+        private final TextView tvCate;
 
         public TopicListItemHolder(View itemView) {
             super(itemView);
@@ -116,6 +118,7 @@ public class TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.Topi
             tvStory = (TextView) itemView.findViewById(R.id.tvStory);
             tvDate = (TextView) itemView.findViewById(R.id.tvDate);
             tvLiked = (TextView) itemView.findViewById(R.id.tvLiked);
+            tvCate = (TextView) itemView.findViewById(R.id.tvCate);
         }
     }
 

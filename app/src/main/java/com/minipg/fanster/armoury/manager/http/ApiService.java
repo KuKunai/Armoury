@@ -44,10 +44,10 @@ public interface ApiService {
     Call<RegisterResponseItemDao> register(@Body RegisterForm userObject);
 
     @POST("user/share/{id}")
-    Call<String> addTopic(@Path("id") String id,@Body TopicForm topicObject);
+    Call<String> addTopic(@Path("id") String id, @Body TopicForm topicObject);
 
     @POST("user/like/{userid}/{topicid}")
-    Call<Boolean> likeTopic(@Path("userid") String userid,@Path("topicid") String topicid);
+    Call<Boolean> likeTopic(@Path("userid") String userid, @Path("topicid") String topicid);
 
     @GET("user/get-by-id/{id}")
     Call<UserDao> loadUserById(@Path("id") String id);
@@ -61,4 +61,6 @@ public interface ApiService {
     @GET("category/getallcategory")
     Call<List<CategoryItemDao>> loadAllCategoryList();
 
+    @POST("topic/view/{id}")
+    Call<String> addView(@Path("id") String id);
 }

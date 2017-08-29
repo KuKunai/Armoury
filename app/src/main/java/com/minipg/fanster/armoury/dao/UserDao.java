@@ -87,4 +87,5 @@ public class UserDao {
     public void setShared(List<UserScoreDao> shared) {
         this.shared = shared;
     }
+
 }

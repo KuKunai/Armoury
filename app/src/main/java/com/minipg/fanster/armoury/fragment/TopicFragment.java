@@ -153,6 +153,7 @@ public class TopicFragment extends Fragment {
                 showToast("Refreshed");
             }
         });
+        addView(topic.getString(KEY_ID));
         loadData();
         fabLike.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,6 +163,27 @@ public class TopicFragment extends Fragment {
         });
         //if (savedInstanceState == null)
 
+    }
+
+    private void addView(String id) {
+        if (id != null) {
+            Call<String> call = HttpManager.getInstance().getService().addView(id);
+            call.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().equals("Viewed")) {
+                            //Success
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+
+                }
+            });
+        }
     }
 
     private void like() {
@@ -184,7 +206,7 @@ public class TopicFragment extends Fragment {
                                 showToast("Disliked");
                             }
                             loadData();
-                        } else{
+                        } else {
                             try {
                                 showToast(response.errorBody().string());
                             } catch (IOException e) {

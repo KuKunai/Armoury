@@ -62,9 +62,9 @@ public class PopularTopicListAdapter extends RecyclerView.Adapter<PopularTopicLi
             holder.tvTitle.setText(topicList.get(position).getTitle());
             holder.tvAuthor.setText("by " + topicList.get(position).getPoster());
             holder.tvStory.setText(topicList.get(position).getDescription());
-            holder.tvDate.setText(convertUnixToDate(topicList.get(position).getCreateDate()));
-            holder.tvLiked.setText(topicList.get(position).getScore() + " Liked");
-            holder.tvCate.setText(topicList.get(position).getCategory());
+            holder.tvDate.setText(topicList.get(position).getCategory());
+            holder.tvCate.setText(topicList.get(position).getScore() + " liked");
+            holder.tvLiked.setText(topicList.get(position).getView() + " views");
         }
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {

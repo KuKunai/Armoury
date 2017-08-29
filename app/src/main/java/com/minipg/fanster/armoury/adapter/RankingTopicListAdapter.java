@@ -60,32 +60,58 @@ public class RankingTopicListAdapter extends RecyclerView.Adapter<RankingTopicLi
     public void onBindViewHolder(UserListItemHolder holder, final int position) {
         if (userList != null) {
             holder.tvName.setText(userList.get(position).getName());
-            holder.tvShare.setText("Toal topic : " + userList.get(position).getTotalShare());
+            holder.tvShare.setText(userList.get(position).getTotalShare() + " topics");
+            holder.tvLiked.setText(userList.get(position).getLike() + " likes  ");
+            holder.tvView.setText(userList.get(position).getView() + " views ");
             holder.tvScore.setText("Score : " + userList.get(position).getScore());
             holder.tvRank.setText("" + userList.get(position).getRank());
-            if (userList.get(position).getRank() > oldRank) {
-                oldRank = userList.get(position).getRank();
-                chance++;
-            }
-                switch (chance) {
-                    case 1:
-                        holder.tvRank.setTextColor(Color.parseColor("#FDD835"));
-                        break;
-                    case 2:
-                        holder.tvRank.setTextColor(Color.parseColor("#C0C0C0"));
-                        break;
-                    case 3:
-                        holder.tvRank.setTextColor(Color.parseColor("#c87533"));
-                        break;
-                    default:
-                        holder.tvRank.setTextColor(Color.parseColor("#4DB6AC"));
-                        break;
-            }
-            if(position==(getItemCount())-1){
-                oldRank = 0;
-                chance = 0;
-            }
+            int low = 3;
+            int lower = 2;
+            int lowest = 1;
+            boolean skip = false;
+            boolean skip2 = false;
 
+            if (userList.size() > 0) {
+                for (UserRankingDao user : userList) {
+                    if (user.getRank() == 1) {
+
+                    }
+                    if (user.getRank() > 1) {
+                        if (!skip)
+                            lower = user.getRank();
+                        skip = true;
+                    }
+                    if (skip && user.getRank() > lower) {
+                        if (!skip2)
+                            low = user.getRank();
+                        skip2 = true;
+                    }
+                    if (skip2 && user.getRank() > low) {
+                        break;
+                    }
+                }
+            }
+            if (userList.get(position).getRank() == 1) {
+                holder.tvRank.setTextColor(Color.parseColor("#FDD835"));
+            } else if (userList.get(position).getRank() == lower) {
+                holder.tvRank.setTextColor(Color.parseColor("#C0C0C0"));
+            } else if (userList.get(position).getRank() == low) {
+                holder.tvRank.setTextColor(Color.parseColor("#c87533"));
+            }
+//            switch (userList.get(position).getRank()) {
+//                case 1:
+//                    holder.tvRank.setTextColor(Color.parseColor("#FDD835"));
+//                    break;
+//                case 2:
+//                    holder.tvRank.setTextColor(Color.parseColor("#C0C0C0"));
+//                    break;
+//                case 3:
+//                    holder.tvRank.setTextColor(Color.parseColor("#c87533"));
+//                    break;
+//                default:
+//                    holder.tvRank.setTextColor(Color.parseColor("#4DB6AC"));
+//                    break;
+//            }
         }
 //        holder.cardView.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -95,6 +121,7 @@ public class RankingTopicListAdapter extends RecyclerView.Adapter<RankingTopicLi
 //            }
 //        });
     }
+
 
     @Override
     public int getItemCount() {
@@ -111,6 +138,8 @@ public class RankingTopicListAdapter extends RecyclerView.Adapter<RankingTopicLi
         private final TextView tvScore;
         private final TextView tvShare;
         private final TextView tvRank;
+        private final TextView tvView;
+        private final TextView tvLiked;
 
         public UserListItemHolder(View itemView) {
             super(itemView);
@@ -119,6 +148,8 @@ public class RankingTopicListAdapter extends RecyclerView.Adapter<RankingTopicLi
             tvScore = (TextView) itemView.findViewById(R.id.tvScore);
             tvShare = (TextView) itemView.findViewById(R.id.tvShare);
             tvRank = (TextView) itemView.findViewById(R.id.tvRanking);
+            tvView = (TextView) itemView.findViewById(R.id.tvView);
+            tvLiked = (TextView) itemView.findViewById(R.id.tvLiked);
         }
 
     }

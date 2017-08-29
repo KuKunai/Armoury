@@ -24,6 +24,12 @@ public class UserRankingDao {
     @SerializedName("totalShare")
     @Expose
     private int totalShare;
+    @SerializedName("totalView")
+    @Expose
+    private int view;
+    @SerializedName("totalLike")
+    @Expose
+    private int like;
 
     public String getId() {
         return id;
@@ -63,5 +69,21 @@ public class UserRankingDao {
 
     public void setTotalShare(int totalShare) {
         this.totalShare = totalShare;
+    }
+
+    public int getView() {
+        return view;
+    }
+
+    public void setView(int view) {
+        this.view = view;
+    }
+
+    public int getLike() {
+        return like;
+    }
+
+    public void setLike(int like) {
+        this.like = like;
     }
 }
